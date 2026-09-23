@@ -1,0 +1,5 @@
+/* Narrow windows use a dock below the movie, never a panel over it. */
+:host([data-layout=drawer]) #panel{inset:auto 0 0;width:100%;max-width:none;height:var(--dock-height);max-height:var(--dock-height);border-radius:0;border-width:1px 0 0;box-shadow:none}
+:host([data-layout=drawer]) #launcher{display:none}
+:host([data-layout=drawer]) #session{flex:1}
+:host([data-layout=drawer]) #messages{min-height:110px;flex-shrink:0}

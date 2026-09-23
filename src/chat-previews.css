@@ -1,0 +1,9 @@
+/* Slim sender + excerpt rows; the full text remains in room chat and the tooltip. */
+#chat-previews{position:fixed;right:24px;bottom:78px;width:440px;max-width:calc(100vw - 24px);display:flex;flex-direction:column;gap:4px;pointer-events:none}
+.chat-preview{pointer-events:auto;display:flex;align-items:baseline;gap:8px;width:100%;padding:6px 10px;text-align:left;background:var(--panel);color:var(--text);border:1px solid var(--border);border-radius:var(--corner);box-shadow:0 3px 14px var(--shadow);animation:preview-appear .15s ease-out;overflow:hidden;flex-shrink:0}
+.chat-preview:hover{background:var(--surface)}
+.chat-preview b{display:block;max-width:90px;flex-shrink:0;font-size:11px;line-height:1.5;font-weight:650;color:var(--accent-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chat-preview span{display:block;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;font-size:11px;line-height:1.5;white-space:nowrap}
+@media(max-width:480px){#chat-previews{right:12px;bottom:66px}.chat-preview b{max-width:70px}}
+
+@keyframes preview-appear{from{opacity:0}to{opacity:1}}

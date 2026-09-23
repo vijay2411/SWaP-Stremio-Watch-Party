@@ -1,0 +1,15 @@
+node_modules/
+dist/
+output/
+releases/
+.playwright-cli/
+.env
+.env.*
+*.pem
+*.key
+*.log
+demo/swap.js
+demo/swap.js.map
+demo/sidekick.js
+demo/sidekick.js.map
+.DS_Store

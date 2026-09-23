@@ -1,0 +1,28 @@
+/* Shared appearance rules; per-theme art and both palettes live in themes/*.js. */
+:host{--body-font:"Avenir Next",Avenir,"Segoe UI",sans-serif;--corner:8px;font-family:var(--body-font);color:var(--text)}
+button,input,textarea,select{font-family:inherit;color-scheme:inherit;border-radius:var(--corner)}
+button{transition:background-color .18s,color .18s,border-color .18s}
+button:disabled{cursor:not-allowed}
+#panel,#compact,dialog{transition:background-color .18s,color .18s,border-color .18s}
+header{gap:8px;flex-shrink:0}.brand{min-width:0;flex-wrap:wrap;gap:7px}.brand .pill{font:9px/1.4 var(--body-font);letter-spacing:.6px}
+#header-actions{flex-shrink:0;gap:2px}.icon{min-width:30px;min-height:30px}
+#color-mode svg{width:19px;height:19px;transition:transform .22s ease}
+#color-mode:hover svg{transform:rotate(18deg)}
+#lobby-appearance{margin:0 0 17px;font-size:11px}
+#lobby-appearance summary{margin-bottom:8px}
+#theme-preference{margin:13px 18px 0}
+#theme-preference label{font-size:11px}
+.theme-hint{font-size:10px;color:var(--muted);margin:6px 0 0}
+#playback-section{flex-shrink:0}
+#movie-title{font-size:25px;line-height:1.2;margin:7px 0;letter-spacing:-.7px}
+#room-play{background:var(--accent);color:var(--on-accent);border-color:transparent;font-weight:600}
+#sync-box[data-state=mismatch],#sync-box[data-state=blocked]{color:var(--warning);border-color:var(--warning-line);background:var(--warning-bg)}
+#movie-title,#control-note,#sync-status{overflow-wrap:anywhere;min-width:0}
+.tile span{background:var(--video-label);color:var(--video-text)}
+.tile .initial{font-family:var(--body-font);color:var(--muted);padding:18px 8px;text-align:center}
+.tile .pin{font-family:var(--body-font);background:var(--pin-bg);color:var(--text);z-index:1}
+#compact .tile{border-radius:7px;box-shadow:none}
+#compact .call-controls button{font-family:var(--body-font)}
+#end-dialog{font-family:var(--body-font)}
+@media(max-width:400px){header{padding:14px}.brand{font-size:19px!important}.brand .pill{font-size:8px}#movie-disclosures{gap:7px}#movie-disclosures summary{font-size:10px}}
+@media(prefers-reduced-motion:reduce){#panel,#compact,dialog,button,#color-mode svg{transition:none!important}#color-mode:hover svg{transform:none}}
