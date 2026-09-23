@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { QuickReply } from '../src/quick-reply.js';
 
 function fixture() {
-  const elements = new Map(), sent = [], notices = []; let succeeds = true;
+  const elements = new Map(), sent = [], notices = []; let succeeds = true, currentNotice = '';
   const root = { getElementById(id) {
     if (!elements.has(id)) elements.set(id, Object.assign(new EventTarget(), {
       value: '', hidden: true, textContent: '', dataset: {}, attributes: {},
@@ -11,11 +11,11 @@ function fixture() {
     }));
     return elements.get(id);
   } };
-  const controller = new QuickReply(root, text => { sent.push(text); if (succeeds instanceof Error) throw succeeds; return succeeds; }, text => notices.push(text));
+  const controller = new QuickReply(root, text => { sent.push(text); if (succeeds instanceof Error) throw succeeds; return succeeds; }, (text, expected) => { if (expected && currentNotice !== expected) return; currentNotice = text; notices.push(text); });
   const $ = id => root.getElementById(id);
   const type = (id, text) => { $(id).value=text; $(id).dispatchEvent(new Event('input')); };
   const submit = (id='quick-form') => $(id).onsubmit({preventDefault(){}});
-  return { controller, root, $, type, submit, sent, notices, result: value => succeeds=value };
+  return { controller, root, $, type, submit, sent, notices, result: value => succeeds=value, currentNotice: () => currentNotice, notice: text => currentNotice=text };
 }
 function key(element, extra = {}) {
   const event = Object.assign(new Event('keydown',{cancelable:true}),{key:'Enter',...extra}); element.dispatchEvent(event); return event;
@@ -61,4 +61,16 @@ test('leaving resets shared drafts and disables quick sending in a later room',(
   const f=fixture();f.controller.setAvailable(true);f.controller.open();f.type('quick-input','Old room draft');f.controller.reset();
   assert.equal(f.controller.isOpen,false);assert.equal(f.$('quick-toggle').hidden,true);assert.equal(f.$('quick-input').value,'');assert.equal(f.$('chat-input').value,'');
   f.type('quick-input','Late submit');f.submit();assert.equal(f.sent.length,0);
+});
+
+test('successful retry clears only its own stale sidebar send error',()=>{
+  for(const useQuick of [false,true]){
+    const f=fixture();f.result(false);f.type('chat-input','Retry this');f.submit('chat-form');
+    assert.match(f.currentNotice(),/Message not sent/);
+    f.controller.setAvailable(true);f.controller.open();f.result(true);f.submit(useQuick?'quick-form':'chat-form');
+    assert.equal(f.currentNotice(),'');assert.equal(f.$('chat-input').value,'');
+    f.result(false);f.type('chat-input','Another retry');f.submit('chat-form');
+    f.notice('Your browser is blocking call audio.');f.result(true);f.submit('chat-form');
+    assert.equal(f.currentNotice(),'Your browser is blocking call audio.');
+  }
 });

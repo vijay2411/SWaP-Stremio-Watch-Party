@@ -2,14 +2,14 @@
 
 SWaP 4.1 preview packages the same watch-party app as a Manifest V3 extension. Tampermonkey is not needed for this installation. Chrome 120 or newer is required. This is an independent community project; it is not affiliated with Stremio and has not been published to the Chrome Web Store.
 
-Automated app and package checks pass. Live installation verification is pending; see [TESTING.md](TESTING.md) for the exact scope.
+Automated checks and live Chrome/Stremio room, chat and playback checks pass. See [TESTING.md](TESTING.md) for the exact scope and remaining device/network checks.
 
 ## Install the unpacked extension
 
-1. Download **[SWaP-Chrome-4.1.0.zip](https://github.com/vijay2411/SWaP-Stremio-Watch-Party/releases/download/v4.1.0/SWaP-Chrome-4.1.0.zip)** from the release assets. Do not download GitHub’s generic “Source code” ZIP for these steps.
+1. Download **[SWaP-Chrome-4.1.1.zip](https://github.com/vijay2411/SWaP-Stremio-Watch-Party/releases/download/v4.1.1/SWaP-Chrome-4.1.1.zip)** from the release assets. Do not download GitHub’s generic “Source code” ZIP for these steps.
 2. Extract it into a folder you will keep, such as `Documents/SWaP-Chrome`. The folder must contain `manifest.json` directly.
 3. In the Chrome profile you use for Stremio, open `chrome://extensions` and turn on **Developer mode**.
-4. Click **Load unpacked** and select the extracted folder. The extension card should say **SWaP — Stremio Watch Party 4.1.0**.
+4. Click **Load unpacked** and select the extracted folder. The extension card should say **SWaP — Stremio Watch Party 4.1.1**.
 5. If you have a Sidekick/SWaP userscript, disable that script in Tampermonkey. Keep only one SWaP installation active on each page.
 6. Open or reload **https://web.stremio.com/**. Click **Watch together** in the bottom corner. You can also open Chrome’s Extensions menu → **SWaP** → **Open watch party**. Pin SWaP if you want its toolbar button visible.
 
@@ -45,8 +45,8 @@ npm run test:package
 Outputs:
 
 - `dist/chrome-extension/`: load this folder with **Load unpacked**.
-- `dist/SWaP-Chrome-4.1.0.zip`: distribution/upload ZIP, with `manifest.json` at its root.
-- `dist/SWaP-Chrome-4.1.0.zip.sha256`: checksum of the ZIP.
+- `dist/SWaP-Chrome-4.1.1.zip`: distribution/upload ZIP, with `manifest.json` at its root.
+- `dist/SWaP-Chrome-4.1.1.zip.sha256`: checksum of the ZIP.
 - `SWaP.user.js` and `dist/SWaP.user.js`: userscript alternative.
 
 `npm run build:extension` builds only the extension. Dependencies and all executable code are bundled locally. The ZIP uses an explicit file allowlist and fixed timestamps; it excludes demo fixtures, source maps, development servers, browser profiles and local configuration. On the same Node/zlib toolchain, unchanged inputs produce the same ZIP bytes. The committed PNG icons require no image tools to build; optional regeneration uses `python3 scripts/generate-icons.py` with Pillow.

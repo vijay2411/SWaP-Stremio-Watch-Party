@@ -1,6 +1,6 @@
 # Security & privacy review
 
-Review date: 2026-09-23. Extension packaging review: 2026-09-24. Current supported version: **SWaP 4.1.0** (room protocol 4 unchanged). Older Sidekick tags are historical, unsupported snapshots and do not have the protections added here.
+Review date: 2026-09-23. Extension packaging and live verification: 2026-09-24. Current supported version: **SWaP 4.1.1** (room protocol 4 unchanged). Older Sidekick tags are historical, unsupported snapshots and do not have the protections added here.
 
 This is a first-party source/dependency review with targeted adversarial tests and local browser checks. It is not an independent penetration-test report, formal verification, or a guarantee that vulnerabilities cannot exist. No third-party service was attacked.
 
@@ -72,7 +72,7 @@ PeerJS 1.5.5 bundles public shared TURN access values and a public signaling API
 
 [TESTING.md](TESTING.md) records executed checks. Security tests include wrong-room keys targeting the correct address, refusal to share history before admission, replayed proofs, substituted connection objects, invalid/oversized frames, unauthorized calls, asynchronous shutdown and bounded multilingual history. Existing tests cover text-only previews, URL exclusion, camera-track release, permissions, sync, buffering and room lifecycle.
 
-Local browser tests use actual WebRTC with synthetic media and a local signaling server. Separate rooms, admitted calls, chat and controls were exercised. This review did not independently audit browser/WebRTC/PeerJS internals, the production signaling/TURN operators, all Stremio addons, or every network/device. Cross-network reliability, mobile/narrow-window layouts, real hardware indicators, acoustic echo cancellation and large-room capacity need further real-world testing.
+Local browser tests use actual WebRTC with synthetic media and a local signaling server. Follow-up installed-extension tests on Stremio Web exercised public signaling, separate rooms, chat, controls and an opt-in two-tab hardware video call. Chrome's capture indicators disappeared after leaving both calls. This review did not independently audit browser/WebRTC/PeerJS internals, the production signaling/TURN operators, all Stremio addons, or every network/device. Cross-network reliability, mobile/narrow-window layouts, physical camera LEDs, acoustic echo cancellation and large-room capacity need further real-world testing.
 
 ## Reporting a vulnerability
 

@@ -6,7 +6,7 @@ Watch together on [Stremio Web](https://web.stremio.com/) with one room code, sy
 
 **[Install userscript](https://raw.githubusercontent.com/vijay2411/SWaP-Stremio-Watch-Party/main/SWaP.user.js)** · **[Install Chrome extension](CHROME-EXTENSION.md)** · [Installation guide](INSTALL.md) · [Security & privacy](SECURITY.md) · [Version history](VERSIONS.md)
 
-SWaP 4.1 is available as an **unpacked Chrome extension preview** or a **userscript for desktop browsers** through Tampermonkey. Automated packaging checks pass; live installation verification is pending (see [TESTING.md](TESTING.md)). There is no SWaP Chrome Web Store release yet. This is an independent community project, not an official Stremio extension.
+SWaP 4.1 is available as an **unpacked Chrome extension preview** or a **userscript for desktop browsers** through Tampermonkey. Automated checks and live Chrome/Stremio room, chat and playback checks pass (see [TESTING.md](TESTING.md) for scope). There is no SWaP Chrome Web Store release yet. This is an independent community project, not an official Stremio extension.
 
 ## Get watching
 

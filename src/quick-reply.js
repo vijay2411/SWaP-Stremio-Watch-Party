@@ -1,3 +1,5 @@
+const SEND_ERROR = 'Message not sent. Wait a moment and try again.';
+
 // One draft shared by the sidebar and folded composer. No playback/call changes.
 export class QuickReply {
   constructor(root, send, sidebarNotice) {
@@ -48,11 +50,12 @@ export class QuickReply {
     let sent = false;
     try { sent = this.send(text); } catch { /* Preserve the draft if transport fails. */ }
     if (sent) {
+      this.sidebarNotice('', SEND_ERROR);
       this.setDraft(''); this.context.textContent = ''; this.context.hidden = true; this.box.title = '';
       if (input === this.input) this.feedback('Sent');
     } else {
       this.setDraft(draft);
-      const error = 'Message not sent. Wait a moment and try again.';
+      const error = SEND_ERROR;
       if (input === this.input) this.feedback(error, true); else this.sidebarNotice(error);
     }
     input.focus();

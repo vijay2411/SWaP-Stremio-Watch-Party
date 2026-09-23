@@ -106,7 +106,7 @@ function mount() {
     hide('folded-actions', !$('panel').hidden);
     quickReply.setAvailable(!!room?.active && $('panel').hidden);
   };
-  const notice = message => { clearTimeout(noticeTimer); $('notice').textContent = message; hide('notice', !message); };
+  const notice = (message, expected) => { if (expected && $('notice').textContent !== expected) return; clearTimeout(noticeTimer); $('notice').textContent = message; hide('notice', !message); };
   try { $('name').value = localStorage.getItem('sidekick-name') || ''; $('options').value = sessionStorage.getItem('sidekick-options') || ''; } catch { /* Storage is optional. */ }
   const panel = open => {
     hide('panel', !open); $('launcher').setAttribute('aria-expanded', String(open));

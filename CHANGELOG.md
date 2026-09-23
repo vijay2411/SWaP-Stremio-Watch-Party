@@ -1,3 +1,10 @@
+# SWaP 4.1.1
+
+- Fixes a stale sidebar error after a rejected chat send: a successful retry now clears that send warning while preserving unrelated notices, such as blocked call audio. This applies to both the sidebar and compact reply.
+- Verifies the installed 4.1 extension on Stremio Web: toolbar opening, matching stream details, public-signaling guest admission, bidirectional chat, synchronized play/pause, host/shared control changes, compact replies, light/dark sidebar layout and end-room confirmation.
+- Verifies separate-room chat/playback isolation, an opt-in two-tab hardware video call, participant pinning, camera-off placeholders and call cleanup: Chrome's capture indicators disappear after leaving both calls.
+- Updates the installation and verification documents. Room protocol 4 is unchanged. Cross-network reliability, physical camera LEDs and acoustic echo cancellation still need real-world verification.
+
 # SWaP 4.1.0
 
 - Adds a Manifest V3 Chrome extension with a toolbar button and narrowly scoped Stremio content script. No Tampermonkey dependency for extension installs.
@@ -6,7 +13,7 @@
 - Adds original PNG icons, deterministic allowlisted ZIP/checksum builds, extension boundary/package tests, a privacy notice and installation/store-preparation instructions.
 - Preserves preferences and prevents a second SWaP/Sidekick copy mounting over the same player. Disable the old userscript and reload when switching to the extension.
 
-This preview is available for unpacked Chrome installation. Live extension verification is pending; Chrome Web Store publication is still upcoming.
+This preview added unpacked Chrome installation. Live extension verification was pending at release and is recorded in 4.1.1 above; Chrome Web Store publication is still upcoming.
 
 # SWaP 4.0.0
 
