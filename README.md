@@ -1,6 +1,6 @@
 # SWaP historical archive
 
-This commit preserves the original Sidekick 3.1.2 userscript, unchanged, under the common `SWaP.user.js` filename. Imported in version order; commit dates reflect the import, not the original release dates.
+This commit preserves the original Sidekick 3.1.3 userscript, unchanged, under the common `SWaP.user.js` filename. Imported in version order; commit dates reflect the import, not the original release dates.
 
 **Historical and unsupported. Use the latest release on the main branch for normal installation.** Older versions do not include SWaP 4.0 room authentication and security hardening. Original metadata/branding is intentionally preserved in this snapshot.
 
