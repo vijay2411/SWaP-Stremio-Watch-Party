@@ -1,0 +1,83 @@
+[
+  {
+    "version": "2.0.1",
+    "tag": "v2.0.1",
+    "sha256": "65fbdfbf8ae98f00c444f33107013e138c62b5d10388da4cd845ccb9349b8e95",
+    "originalFiles": [
+      "Sidekick-Stremio-v2-old.user.js",
+      "Sidekick-Stremio-v2.user.js"
+    ]
+  },
+  {
+    "version": "2.1.0",
+    "tag": "v2.1.0",
+    "sha256": "cdc6fd278127d51e4b0fc13c91370527dea00b2508f68839d34c1f98fd82638c",
+    "originalFiles": [
+      "Sidekick-Stremio-v2.1.user.js"
+    ]
+  },
+  {
+    "version": "2.1.1",
+    "tag": "v2.1.1",
+    "sha256": "bae95b97d1b6d75e82fe4758134193aa20e24738701f985f12449a22b9c4d6d4",
+    "originalFiles": [
+      "Sidekick-Stremio-v2.1.1.user.js"
+    ]
+  },
+  {
+    "version": "3.0.0",
+    "tag": "v3.0.0",
+    "sha256": "c7b5579b83a9714b8b450c5ef5fd4e5b077624c5f97f69fc5c939b18a29a7a73",
+    "originalFiles": [
+      "Sidekick-Stremio-v3.user.js"
+    ]
+  },
+  {
+    "version": "3.0.1",
+    "tag": "v3.0.1",
+    "sha256": "8e0dcdf29c889d2433ea4ed36a5ef0f884504d03879138cde716eb662853471c",
+    "originalFiles": [
+      "Sidekick-Stremio-v3.0.1.user.js"
+    ]
+  },
+  {
+    "version": "3.0.2",
+    "tag": "v3.0.2",
+    "sha256": "d1e8739bf8bc7ecd17bfd49f5c0c33ff4be1660dda4d1596d4d0bb43e97c6370",
+    "originalFiles": [
+      "Sidekick-Stremio-v3.0.2.user.js"
+    ]
+  },
+  {
+    "version": "3.1.0",
+    "tag": "v3.1.0",
+    "sha256": "95255e8d345026381bb4a04f7fead25a311bab22bac75f569d804a33b8ed0bff",
+    "originalFiles": [
+      "Sidekick-Stremio-v3.1.0.user.js"
+    ]
+  },
+  {
+    "version": "3.1.1",
+    "tag": "v3.1.1",
+    "sha256": "f753634e0c54356f7ad4d25e278227643dd87a52556fc527f5a6ba4618593e8e",
+    "originalFiles": [
+      "Sidekick-Stremio-v3.1.1.user.js"
+    ]
+  },
+  {
+    "version": "3.1.2",
+    "tag": "v3.1.2",
+    "sha256": "7a9114ee0543bc5edd417fcbe3c51ab3906e1c7896a391b23f6d0a590e435e21",
+    "originalFiles": [
+      "Sidekick-Stremio-v3.1.2.user.js"
+    ]
+  },
+  {
+    "version": "3.1.3",
+    "tag": "v3.1.3",
+    "sha256": "137f40fbf4fc91abcf306c1f917071b575143c56a98bb1c7eb7498ec2efb22bc",
+    "originalFiles": [
+      "Sidekick-Stremio-v3.1.3.user.js"
+    ]
+  }
+]
