@@ -1,5 +1,7 @@
 # SWaP for Chrome
 
+[Quick start](README.md#install) · [Usage guide](USAGE.md) · [Developer guide](DEVELOPING.md)
+
 SWaP 4.1 preview packages the same watch-party app as a Manifest V3 extension. Tampermonkey is not needed for this installation. Chrome 120 or newer is required. This is an independent community project; it is not affiliated with Stremio and has not been published to the Chrome Web Store.
 
 Automated checks and live Chrome/Stremio room, chat and playback checks pass. See [TESTING.md](TESTING.md) for the exact scope and remaining device/network checks.

@@ -1,5 +1,7 @@
 # Install SWaP
 
+[Quick start](README.md#install) · [How to use SWaP](USAGE.md)
+
 ## Chrome extension (no Tampermonkey)
 
 Download the extension ZIP and follow **[CHROME-EXTENSION.md](CHROME-EXTENSION.md)** to load its extracted folder. Store installation is upcoming; this release is installed through Chrome’s Developer mode. Use either the extension or the userscript, not both at once.
@@ -33,7 +35,7 @@ The main installation link follows current releases. Tampermonkey checks updates
 ## Troubleshooting
 
 - **No Watch together button:** ensure Tampermonkey and SWaP are enabled, Allow User Scripts/site access are enabled, the address is exactly `web.stremio.com`, and reload. Keep one script enabled.
-- **Cannot join:** everyone must use SWaP 4.x and the same signaling settings; check the code and keep the host tab open. Corporate/hotel/mobile networks may need TURN. See [network details](README.md#what-serverless-means-here).
+- **Cannot join:** everyone must use SWaP 4.x and the same signaling settings; check the code and keep the host tab open. Corporate/hotel/mobile networks may need TURN. See [network details](DEVELOPING.md#connections-and-cost).
 - **Movie isn’t playing:** each person must load a playable stream independently. Check title/duration warnings and press Sync now if the browser blocks autoplay. SWaP cannot make an unsupported stream playable.
 - **No camera/mic:** use the browser’s site-permission controls, then try joining the call again. Audio only works without enabling your camera. Camera off releases SWaP’s video track, but another app/tab could still be using the device.
 - **Echo:** try headphones or Microphone mode → Hold to talk. Browser echo cancellation cannot guarantee speaker isolation on every device.
