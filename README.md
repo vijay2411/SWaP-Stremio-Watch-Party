@@ -1,11 +1,13 @@
-# SWaP — Stremio Watch Party
+# 🎬 SWaP — Stremio Watch Party
 
 **Your friends. One room code. Movie night.**
 
 Bring the Netflix-party experience to [Stremio Web](https://web.stremio.com/): watch in sync, chat, and hop on a video call.
 Create a room, share the code, and press play together. Free, with no SWaP account or server setup.
 
-## Install
+<a id="install"></a>
+
+## 📥 Install
 
 Choose **one method**. Everyone in the room needs SWaP.
 
@@ -23,7 +25,9 @@ Choose **one method**. Everyone in the room needs SWaP.
 
 The extension is a preview; a Chrome Web Store install is upcoming. Disable old Sidekick/SWaP copies before starting. [Installation help](INSTALL.md) · [Extension help](CHROME-EXTENSION.md)
 
-## Start your watch party
+<a id="start-your-watch-party"></a>
+
+## 🍿 Start your watch party
 
 1. **Open your movie.** Everyone loads the same movie/episode and matching edition in their own Stremio Web player.
 2. **Host:** open **Watch together**, enter a name, and select **Create a room**.
@@ -32,11 +36,11 @@ The extension is a preview; a Chrome Web Store install is upcoming. Disable old 
 
 ### A few controls to know
 
-- **Playback:** host control is the default. In **Room preferences**, allow everyone to control playback and choose whether to wait for buffering friends. Waiting is on by default, for up to 20 seconds.
-- **Stream checks:** **Watching now** shows the title and timing. Expand **Stream details** or **Everyone's playback** for more; check warnings before starting.
-- **Chat:** minimize the sidebar to give the movie more space. New messages appear briefly; **Reply** lets you answer from the bottom bar.
-- **Calls:** choose **Join video call** or **Audio only**. Pin a friend, toggle your camera/mic, or choose **Hold to talk** and a shortcut key.
-- **Appearance:** choose from 11 themes and switch light/dark mode with the sun/moon button. Minimalism dark is the default; your choice affects only you.
+- ▶️ **Playback:** host control is the default. In **Room preferences**, allow everyone to control playback and choose whether to wait for buffering friends. Waiting is on by default, for up to 20 seconds.
+- 🔎 **Stream checks:** **Watching now** shows the title and timing. Expand **Stream details** or **Everyone's playback** for more; check warnings before starting.
+- 💬 **Chat:** minimize the sidebar to give the movie more space. New messages appear briefly; **Reply** lets you answer from the bottom bar.
+- 📹 **Calls:** choose **Join video call** or **Audio only**. Pin a friend, toggle your camera/mic, or choose **Hold to talk** and a shortcut key.
+- 🎨 **Appearance:** choose from 11 themes and switch light/dark mode with the sun/moon button. Minimalism dark is the default; your choice affects only you.
 
 ### Enable, pause or switch off
 
@@ -46,7 +50,9 @@ The extension is a preview; a Chrome Web Store install is upcoming. Disable old 
 
 [Full usage guide](USAGE.md) · [Troubleshooting](INSTALL.md#troubleshooting)
 
-## More details & FAQ
+<a id="more-details--faq"></a>
+
+## 💡 More details & FAQ
 
 <details>
 <summary><strong>Does SWaP provide the movie or share my Stremio account?</strong></summary>
@@ -106,14 +112,18 @@ Tampermonkey checks for userscript updates according to its settings; reload Str
 
 </details>
 
-## Requirements & compatibility
+<a id="requirements--compatibility"></a>
+
+## 💻 Requirements & compatibility
 
 - **Desktop Stremio Web:** `https://web.stremio.com/`, with a playable stream for each person. SWaP does not run in Stremio's desktop/TV apps or external players.
 - **Browser:** Chrome 120+ for the extension. The userscript needs a compatible Tampermonkey browser with WebRTC/Web Crypto; desktop Chrome is the live-tested setup. Other browsers/mobile are not fully verified.
 - **Calls:** camera/microphone permissions as needed; headphones recommended. Restrictive networks may need a TURN relay.
 - **Versions:** extension 4.1 and userscript 4.0/4.1 can share rooms. Old Sidekick v2/v3 cannot join; update everyone and create a new room. Use only one SWaP installation per page.
 
-## Guides & project status
+<a id="guides--project-status"></a>
+
+## 🧭 Guides & project status
 
 - [Usage guide](USAGE.md) · [Install & troubleshooting](INSTALL.md) · [Chrome extension guide](CHROME-EXTENSION.md)
 - [Privacy](PRIVACY.md) · [Security review](SECURITY.md) · [Testing & known limits](TESTING.md)
@@ -122,7 +132,9 @@ Tampermonkey checks for userscript updates according to its settings; reload Str
 - **Next:** Chrome Web Store installation and automatic extension updates; more testing across networks/devices and larger calls.
 - **Under consideration:** room admission and moderation controls. No release dates promised.
 
-## License & credits
+<a id="license--credits"></a>
+
+## 📄 License & credits
 
 [MIT license](LICENSE). Inspired by [Sagar Chaulagain's Stremio Watch Together](https://github.com/sagarchaulagai/stremio-watch-together/); built with PeerJS and WebRTC. [Third-party notices](THIRD-PARTY-NOTICES.txt).
 
