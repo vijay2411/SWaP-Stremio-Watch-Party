@@ -87,5 +87,13 @@
     "originalFiles": [
       "SWaP.user.js"
     ]
+  },
+  {
+    "version": "4.1.0",
+    "tag": "v4.1.0",
+    "sha256": "5a754a9282b2c85c4db437a0cfaa4e40be0ac91c2315bd95afcf2028b07e01d0",
+    "originalFiles": [
+      "SWaP.user.js"
+    ]
   }
 ]

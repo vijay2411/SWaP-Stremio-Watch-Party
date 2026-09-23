@@ -16,8 +16,12 @@ import { WatchLayout } from './layout.js';
 import layoutCss from './layout.css';
 import { formatCode, normalizeCode, parseOptions, detailUrl } from './protocol.js';
 
-// Retain the legacy mount marker to avoid duplicate overlays during upgrades.
-if (!document.getElementById('sidekick-root')) mount();
+// Both distributions share one app and one mount marker. Never start two rooms
+// over the same player if an older userscript or extension is still enabled.
+export function mountSwap() {
+  if (document.getElementById('sidekick-root')) return null;
+  return mount();
+}
 function mount() {
   const paths = {
     together: '<rect x="2" y="4" width="14" height="13" rx="4"/><path d="m16 8 6-3v11l-6-3M6 21h8M10 17v4"/>',
@@ -330,4 +334,8 @@ function mount() {
   $('confirm-end').onclick = leave;
   window.addEventListener('pagehide', reset);
   if (__DEMO__) panel(true);
+  return Object.freeze({
+    show: () => panel(true),
+    status: () => ({ inRoom: !!room?.active, open: !$('panel').hidden })
+  });
 }

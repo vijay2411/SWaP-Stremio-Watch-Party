@@ -4,21 +4,23 @@
 
 Watch together on [Stremio Web](https://web.stremio.com/) with one room code, synchronized playback, group chat, and optional audio/video calls. Free to use, with no SWaP account and no backend for you to deploy.
 
-**[Install SWaP 4.0](https://raw.githubusercontent.com/vijay2411/SWaP-Stremio-Watch-Party/main/SWaP.user.js)** · [Installation guide](INSTALL.md) · [Security & privacy](SECURITY.md) · [Version history](VERSIONS.md)
+**[Install userscript](https://raw.githubusercontent.com/vijay2411/SWaP-Stremio-Watch-Party/main/SWaP.user.js)** · **[Install Chrome extension](CHROME-EXTENSION.md)** · [Installation guide](INSTALL.md) · [Security & privacy](SECURITY.md) · [Version history](VERSIONS.md)
 
-SWaP is currently a **userscript for desktop browsers**, installed through Tampermonkey. A standalone Chrome extension is planned; there is no SWaP Chrome Web Store release yet. This is an independent community project, not an official Stremio extension.
+SWaP 4.1 is available as an **unpacked Chrome extension preview** or a **userscript for desktop browsers** through Tampermonkey. Automated packaging checks pass; live installation verification is pending (see [TESTING.md](TESTING.md)). There is no SWaP Chrome Web Store release yet. This is an independent community project, not an official Stremio extension.
 
 ## Get watching
+
+For Chrome without Tampermonkey, follow the **[extension installation guide](CHROME-EXTENSION.md)**. For the userscript:
 
 1. Install [Tampermonkey](https://www.tampermonkey.net/) using its official browser-store link. In current Chrome, open its extension details and enable **Allow User Scripts**. See [Tampermonkey’s instructions](https://www.tampermonkey.net/faq.php?locale=en&q=Q209).
 2. Open **[Install SWaP](https://raw.githubusercontent.com/vijay2411/SWaP-Stremio-Watch-Party/main/SWaP.user.js)** and confirm installation. If you used Sidekick, disable its old script first; keep only one copy enabled.
 3. Reload **https://web.stremio.com/**. Open **Watch together**, enter a name, and create a room.
-4. Send your friends the installation link and your room code privately. Everyone installs SWaP 4.0, opens their own matching stream, and joins with that code.
+4. Send your friends the installation link and your room code privately. Everyone installs SWaP 4.x, opens their own matching stream, and joins with that code.
 5. The host presses **Play room**. Calls are optional; camera/microphone capture starts only after choosing **Join video call** or **Audio only**.
 
 Everyone needs their own Stremio setup and access to the content. SWaP synchronizes players; it does not redistribute movies or share your Stremio login/addons. The host must keep the tab and room open.
 
-> Upgrading: SWaP 4.0 uses a new authenticated room protocol. It cannot join Sidekick v2/v3 rooms. Update everyone, then create a fresh room. Historical versions are archived for reference, not recommended for use.
+> Upgrading: SWaP 4.x uses a new authenticated room protocol. It cannot join Sidekick v2/v3 rooms. Update everyone, then create a fresh room. Extension 4.1 and userscript 4.0/4.1 are compatible; keep only one installation active per page. Historical versions are archived for reference, not recommended for use.
 
 ## What’s included
 
@@ -57,7 +59,7 @@ SWaP has no remote-desktop, shell, file-sharing or arbitrary-code-execution feat
 
 The host sees/forwards chat and keeps up to 100 messages in memory, subject to a bounded join replay. Nothing is written to a SWaP chat database. Display name, theme, mode and talk key are saved locally; optional connection settings are in session storage. Other code running on the same Stremio origin can access that storage. SWaP adds no analytics.
 
-Read the [security review](SECURITY.md) for findings, fixes, credential-scan scope and remaining limitations. This is a code review with targeted tests, not an independent penetration-test certification.
+Read the [privacy notice](PRIVACY.md) and [security review](SECURITY.md) for findings, fixes, credential-scan scope and remaining limitations. This is a code review with targeted tests, not an independent penetration-test certification.
 
 ## Development
 
@@ -67,20 +69,21 @@ Node.js 20+:
 npm ci
 npm test
 npm run build
+npm run test:package
 npm run demo
 ```
 
-The build writes the installable **`SWaP.user.js`** at the repository root and `dist/SWaP.user.js`; libraries and CSS are bundled, with no runtime CDN script imports. `package-lock.json` pins dependencies. `dist/` and demo bundles are generated locally and ignored by Git.
+The build writes the installable **`SWaP.user.js`** at the repository root and `dist/SWaP.user.js`; libraries and CSS are bundled, with no runtime CDN script imports. `package-lock.json` pins dependencies. `dist/` and demo bundles are generated locally and ignored by Git. The same build also writes `dist/chrome-extension/` and a versioned extension ZIP/checksum; see [CHROME-EXTENSION.md](CHROME-EXTENSION.md).
 
-Open **http://127.0.0.1:9000/demo/stremio-layout.html?local=1&synthetic=1** in multiple tabs for local signaling and synthetic camera/mic tracks. Remove `synthetic=1` to test real devices deliberately. The loopback demo serves an explicit file allowlist. Local signaling still retains public ICE defaults, so STUN/TURN discovery can contact those providers. Demo-only overrides and fixtures are absent from the installable userscript.
+Open **http://127.0.0.1:9000/demo/stremio-layout.html?local=1&synthetic=1** in multiple tabs for local signaling and synthetic camera/mic tracks. Remove `synthetic=1` to test real devices deliberately. The loopback demo serves an explicit file allowlist. Local signaling still retains public ICE defaults, so STUN/TURN discovery can contact those providers. Demo-only overrides and fixtures are absent from both production distributions. The demo exercises the shared app in the page context; it does not replace testing Chrome’s isolated extension on Stremio.
 
 Edit `src/`, then rebuild. Themes live in `src/themes/`; [theme editing instructions](src/themes/README.md) explain how to add/remove one without touching room logic. Internal legacy storage keys and the mount marker remain for preference/upgrade compatibility.
 
-See [TESTING.md](TESTING.md) for verification and [CHANGELOG.md](CHANGELOG.md) for SWaP 4.0. Older compiled releases are successive commits of the same `SWaP.user.js` file, with version tags and a [checksum manifest](versions.json). Import commits are made now, not backdated release claims.
+See [TESTING.md](TESTING.md) for verification and [CHANGELOG.md](CHANGELOG.md) for release changes. Older compiled releases are successive commits of the same `SWaP.user.js` file, with version tags and a [checksum manifest](versions.json). Import commits are made now, not backdated release claims.
 
 ## Upcoming
 
-- Standalone Chrome extension and easier installation.
+- Chrome Web Store publication for simpler installation and automatic extension updates.
 - Further cross-network/device testing, especially restrictive networks and larger calls.
 - Room admission/moderation controls if needed for groups beyond trusted friends.
 

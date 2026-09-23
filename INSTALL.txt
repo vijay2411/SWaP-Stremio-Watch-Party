@@ -1,6 +1,10 @@
 # Install SWaP
 
-## Chrome / Tampermonkey
+## Chrome extension (no Tampermonkey)
+
+Download the extension ZIP and follow **[CHROME-EXTENSION.md](CHROME-EXTENSION.md)** to load its extracted folder. Store installation is upcoming; this release is installed through Chrome’s Developer mode. Use either the extension or the userscript, not both at once.
+
+## Userscript / Tampermonkey
 
 1. Install Tampermonkey from the browser store linked at **https://www.tampermonkey.net/**.
 2. Open `chrome://extensions`, select **Tampermonkey → Details**, and enable **Allow User Scripts** (Chrome 138+). If your older browser shows a different control, follow [Tampermonkey’s official guide](https://www.tampermonkey.net/faq.php?locale=en&q=Q209). Allow the extension to run on `https://web.stremio.com/`.
@@ -22,16 +26,16 @@ The code admits anyone who has it. Share it privately and create a new room if i
 
 ## Upgrading from Sidekick
 
-Install the new SWaP script and disable the old one. Branding and userscript namespace changed, so your manager may treat it as a new script. SWaP 4.0 rooms cannot connect to older versions. Update everyone and create a fresh room. Existing appearance/name/talk-key preferences are retained through the legacy local storage keys.
+Install the new SWaP script and disable the old one. Branding and userscript namespace changed, so your manager may treat it as a new script. SWaP 4.x rooms cannot connect to older versions. Update everyone and create a fresh room. Existing appearance/name/talk-key preferences are retained through the legacy local storage keys.
 
 The main installation link follows current releases. Tampermonkey checks updates according to your settings; reload the Stremio tab after an update. Old tags are historical archives and should not be installed for normal use.
 
 ## Troubleshooting
 
 - **No Watch together button:** ensure Tampermonkey and SWaP are enabled, Allow User Scripts/site access are enabled, the address is exactly `web.stremio.com`, and reload. Keep one script enabled.
-- **Cannot join:** everyone must use SWaP 4.0 and the same signaling settings; check the code and keep the host tab open. Corporate/hotel/mobile networks may need TURN. See [network details](README.md#what-serverless-means-here).
+- **Cannot join:** everyone must use SWaP 4.x and the same signaling settings; check the code and keep the host tab open. Corporate/hotel/mobile networks may need TURN. See [network details](README.md#what-serverless-means-here).
 - **Movie isn’t playing:** each person must load a playable stream independently. Check title/duration warnings and press Sync now if the browser blocks autoplay. SWaP cannot make an unsupported stream playable.
 - **No camera/mic:** use the browser’s site-permission controls, then try joining the call again. Audio only works without enabling your camera. Camera off releases SWaP’s video track, but another app/tab could still be using the device.
 - **Echo:** try headphones or Microphone mode → Hold to talk. Browser echo cancellation cannot guarantee speaker isolation on every device.
 
-A standalone Chrome extension is planned. There is no official SWaP store listing yet.
+Extension 4.1 and userscript 4.0/4.1 can share rooms. There is no SWaP Chrome Web Store listing yet. Unpacked extension updates are manual; see the [extension guide](CHROME-EXTENSION.md#update-or-remove).

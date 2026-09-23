@@ -17,10 +17,13 @@ const banner = `// ==UserScript==
 // @noframes
 // @license      MIT
 // ==/UserScript==`;
-const options = { entryPoints: ['src/main.js'], bundle: true, format: 'iife', target: ['chrome110', 'firefox115', 'safari16.4'], loader: { '.css': 'text' }, legalComments: 'eof' };
+const options = { entryPoints: ['src/userscript.js'], bundle: true, format: 'iife', target: ['chrome110', 'firefox115', 'safari16.4'], loader: { '.css': 'text' }, legalComments: 'eof' };
 await build({ ...options, outfile: 'dist/SWaP.user.js', banner: { js: banner }, define: { __DEMO__: 'false' }, minify: true });
 await build({ ...options, outfile: 'demo/swap.js', define: { __DEMO__: 'true' }, sourcemap: true });
 const peerLicense = await readFile('node_modules/peerjs/LICENSE', 'utf8');
 await writeFile('dist/THIRD-PARTY-NOTICES.txt', `PeerJS 1.5.5\n${peerLicense}\nOther bundled license notices are included at the end of SWaP.user.js.\n`);
 await writeFile('SWaP.user.js', await readFile('dist/SWaP.user.js'));
 console.log('Built dist/SWaP.user.js and the local demo.');
+
+const { buildExtension } = await import('./build-extension.mjs');
+await buildExtension();

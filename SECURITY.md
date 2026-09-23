@@ -1,6 +1,6 @@
 # Security & privacy review
 
-Review date: 2026-09-23. Current supported version: **SWaP 4.0.0**. Older Sidekick tags are historical, unsupported snapshots and do not have the protections added here.
+Review date: 2026-09-23. Extension packaging review: 2026-09-24. Current supported version: **SWaP 4.1.0** (room protocol 4 unchanged). Older Sidekick tags are historical, unsupported snapshots and do not have the protections added here.
 
 This is a first-party source/dependency review with targeted adversarial tests and local browser checks. It is not an independent penetration-test report, formal verification, or a guarantee that vulnerabilities cannot exist. No third-party service was attacked.
 
@@ -52,9 +52,15 @@ Chat, notifications and remote names use text rendering, never remote HTML. Ther
 
 Camera off stops and removes SWaP’s local video tracks; hangup stops microphone and camera tracks. Late permission/stream callbacks are guarded after leaving. Other tabs/apps can independently keep a device active. Audio mute/hold-to-talk keeps the microphone acquired while muting transmission; leaving the call releases it.
 
+## Chrome extension boundary (4.1)
+
+The Manifest V3 extension bundles code locally and injects only into top-level `https://web.stremio.com/*` pages in the ISOLATED world. It requests no extra Chrome API permissions and has no background worker, external messaging, remote code loading or web-accessible resources. Its popup sends only fixed status/open-panel messages; the receiver checks the extension ID, exact popup URL and message shape. No room/chat/call data is exposed through that channel. Unit tests cover rejected senders and commands, and package checks cover the manifest, executable bundle and ZIP allowlist.
+
+Page scripts cannot ordinarily access isolated JavaScript variables, but the DOM and same-origin storage remain shared. The extension does not turn legacy localStorage/sessionStorage into a secure vault. Device access and room trust boundaries remain as described above. A malicious page can manipulate the player/UI; a mount marker prevents accidental duplicate instances, not intentional page interference.
+
 ## Credentials and publication hygiene
 
-The publication includes only product source, tests, demo fixtures, documentation, locked dependencies and compiled userscripts. Browser profiles, `.env` files, session/connection settings, local output/logs, local source archives and unrelated workspace projects are excluded. The CLI’s GitHub authentication is used to push; its token and local authentication files are not copied into the repository. Commit metadata uses the owner’s GitHub noreply address.
+The publication includes only product source, tests, demo fixtures, documentation, locked dependencies and compiled userscripts, extension assets and an allowlisted release ZIP. Browser profiles, `.env` files, session/connection settings, local output/logs, local source archives and unrelated workspace projects are excluded. The CLI’s GitHub authentication is used to push; its token and local authentication files are not copied into the repository. Commit metadata uses the owner’s GitHub noreply address.
 
 All 11 historical script files were scanned before import with **Gitleaks 8.30.1**, using the default rules, redacted output and inline allow-comments disabled: **no findings**. There are 10 distinct versions because the two v2.0.1 files are byte-identical. The final publication tree and complete Git history are also scanned before push. A separate pattern review checks private keys, common provider/GitHub tokens, JWTs, credential-bearing URLs, local home-directory paths and private contact strings. No personal credentials were detected in the publication payload; scanning cannot prove that every conceivable secret is absent.
 
