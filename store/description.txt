@@ -1,0 +1,25 @@
+Your friends. One room code. Movie night.
+
+SWaP brings watch parties to Stremio Web: synchronized playback, room chat and optional voice/video calls. Create a room, share its code privately, and enjoy the same moment together. Free, with no SWaP account or server setup.
+
+• Watch in sync: host-controlled playback, or let everyone control the room.
+• Wait for buffering friends for up to 20 seconds, with playback and stream-mismatch warnings.
+• Chat beside the movie, or minimize the panel for compact message previews and quick replies.
+• Join an optional video or audio call, pin a participant, and use a configurable hold-to-talk shortcut.
+• Choose from 11 themes, each with light and dark modes.
+• Hide or show SWaP from the extension toolbar whenever you need it.
+
+Getting started
+1. Everyone installs SWaP and opens Stremio Web.
+2. Load the same movie or episode and a matching stream edition on each device.
+3. The host creates a room. Friends enter their name and room code to join.
+4. Check the playback details, then press Play room. Keep the host's tab open.
+
+What to know
+SWaP coordinates playback; it does not provide movies, broadcast the movie itself, share accounts or grant access to content. Each viewer needs their own playable stream and any access it requires. This extension works on web.stremio.com in desktop Chrome, not the native Stremio application.
+
+Your room receives your display name, messages and playback details. Calls require joining and allowing device access. SWaP has no developer-operated chat database, analytics or advertising. Third-party signaling/relay services help connect participants, and WebRTC can reveal IP addresses. Anyone with your room code can join, so share it only with trusted friends.
+
+No subscription or per-room charge. Internet/data and content services are separate; practical group size and call reliability depend on devices, bandwidth and connection services. Hiding SWaP keeps your room and calls active; use Leave call to stop camera/microphone capture.
+
+SWaP is an independent community project, not affiliated with or endorsed by Stremio.

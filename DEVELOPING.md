@@ -25,6 +25,8 @@ To exercise the extension adapter with the shared app, open `http://127.0.0.1:90
 
 The synthetic fixture’s **Capture UI timings** button observes rendered notifications and buffering status: it reports preview gaps/lifetimes, the maximum simultaneous previews and the full buffer-wait duration. Send bursts from multiple guest tabs while the host is folded. **Fullscreen player** and **Exit fullscreen** exercise the common movie/control/subtitle shell. Fixture controls stay above the normal dock to avoid clicking through to call controls.
 
+The [store kit](store/README.md) documents the development-only presentation fixtures and how to recapture actual application screenshots without personal content. These files are excluded from the extension ZIP.
+
 Close test calls/rooms when finished. See [TESTING.md](TESTING.md) for executed checks and remaining gaps.
 
 ## Build outputs

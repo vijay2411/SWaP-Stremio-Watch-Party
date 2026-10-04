@@ -1,3 +1,9 @@
+# SWaP 4.2.4
+
+- Prepares a Chrome Web Store submission kit: field-by-field guidance, listing text, reviewer instructions, privacy-category mapping, three actual-UI demo screenshots and promotional graphics. Store submission remains a separate publisher action.
+- Gives the 128 px store/package icon 96 px artwork with 16 px transparent padding. Toolbar icon sizes and the in-page logo remain unchanged.
+- Clarifies room-authentication and optional relay-credential handling in the privacy notice. No runtime behavior, Chrome permissions or room protocol changes.
+
 # SWaP 4.2.3
 
 - Matches the expanded header and folded Watch together icons to the extension toolbar’s rounded camera/play logo. Theme colors adapt while the silhouette stays the same.

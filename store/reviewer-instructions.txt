@@ -1,0 +1,19 @@
+SWaP runs only on https://web.stremio.com/ in desktop Chrome. No SWaP login, payment or subscription is required. Disable duplicate SWaP/Sidekick installations and reload Stremio after installing.
+
+ROOM AND CHAT
+1. Open Stremio Web in two normal tabs. If Stremio requires sign-in, use a Stremio test account; SWaP does not receive its password.
+2. Tab A: Watch together → enter a test name → Create a room. Expand Room & viewing options to copy the code.
+3. Tab B: enter a different name and that code → Join. Exchange chat messages.
+4. Minimize one sidebar; send a message from the other tab. Check the compact preview and Reply control.
+5. Test Hide SWaP / Show SWaP in the Chrome toolbar menu. Hiding preserves the room and active calls.
+
+PLAYBACK
+6. Load the same playable movie/episode and matching stream edition in both tabs. Each viewer needs their own content access and Stremio setup; SWaP supplies no media or credentials and does not retransmit movies.
+7. The host plays, pauses and seeks; the guest follows. Under Room preferences, enable Everyone in the room and try guest control.
+8. Check Watching now, Stream details, Everyone's playback, mismatched-stream warnings and the optional 20-second guest-buffering wait.
+
+OPTIONAL CALLS
+9. Use headphones or separate devices. Choose Join video call or Audio only and allow devices in both tabs. Try pinning, Camera off and hold-to-talk. Camera off stops video; mic mute retains the microphone track. Leave call releases both tracks.
+10. Try themes/light-dark mode. End room on the host and confirm to disconnect both tabs.
+
+Keep the host tab open. Network/NAT and public signaling/relay availability affect connections. All executable code is bundled locally. Privacy details are linked in the listing.

@@ -8,10 +8,10 @@ Automated checks and live Chrome/Stremio room, chat and playback checks pass. Se
 
 ## Install the unpacked extension
 
-1. Download **[SWaP-Chrome-4.2.3.zip](https://github.com/vijay2411/SWaP-Stremio-Watch-Party/releases/download/v4.2.3/SWaP-Chrome-4.2.3.zip)** from the release assets. Do not download GitHub’s generic “Source code” ZIP for these steps.
+1. Download **[SWaP-Chrome-4.2.4.zip](https://github.com/vijay2411/SWaP-Stremio-Watch-Party/releases/download/v4.2.4/SWaP-Chrome-4.2.4.zip)** from the release assets. Do not download GitHub’s generic “Source code” ZIP for these steps.
 2. Extract it into a folder you will keep, such as `Documents/SWaP-Chrome`. The folder must contain `manifest.json` directly.
 3. In the Chrome profile you use for Stremio, open `chrome://extensions` and turn on **Developer mode**.
-4. Click **Load unpacked** and select the extracted folder. The extension card should say **SWaP — Stremio Watch Party 4.2.3**.
+4. Click **Load unpacked** and select the extracted folder. The extension card should say **SWaP — Stremio Watch Party 4.2.4**.
 5. If you have a Sidekick/SWaP userscript, disable that script in Tampermonkey. Keep only one SWaP installation active on each page.
 6. Open or reload **https://web.stremio.com/**. Click **Watch together** at the bottom center. You can also open Chrome’s Extensions menu → **SWaP** → **Open watch party**. Pin SWaP if you want its toolbar button visible.
 
@@ -55,8 +55,8 @@ npm run test:package
 Outputs:
 
 - `dist/chrome-extension/`: load this folder with **Load unpacked**.
-- `dist/SWaP-Chrome-4.2.3.zip`: distribution/upload ZIP, with `manifest.json` at its root.
-- `dist/SWaP-Chrome-4.2.3.zip.sha256`: checksum of the ZIP.
+- `dist/SWaP-Chrome-4.2.4.zip`: distribution/upload ZIP, with `manifest.json` at its root.
+- `dist/SWaP-Chrome-4.2.4.zip.sha256`: checksum of the ZIP.
 - `SWaP.user.js` and `dist/SWaP.user.js`: userscript alternative.
 
 `npm run build:extension` builds only the extension. Dependencies and all executable code are bundled locally. The ZIP uses an explicit file allowlist and fixed timestamps; it excludes demo fixtures, source maps, development servers, browser profiles and local configuration. On the same Node/zlib toolchain, unchanged inputs produce the same ZIP bytes. The committed PNG icons require no image tools to build; optional regeneration uses `python3 scripts/generate-icons.py` with Pillow.
@@ -73,7 +73,9 @@ The room lives in the Stremio tab, so closing the toolbar does not end it; closi
 
 This ZIP is in the format required for a Web Store upload. Publication is a separate step, subject to Google's developer registration, listing requirements, policy review and approval; the package is not a store listing or approval.
 
-For a future submission:
+The [complete submission guide](CHROME-WEB-STORE.md) supplies exact dashboard values, paste-ready description/privacy/reviewer text, and a [store upload kit](store/README.md) with correctly sized graphics. The kit is separate from the installable ZIP.
+
+For submission:
 
 1. Use the Chrome Web Store Developer Dashboard with the publisher account and complete any registration yourself.
 2. Upload the release ZIP. Add the description, category, support URL, icons and current screenshots with no live room codes or personal data.

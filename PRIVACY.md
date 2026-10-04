@@ -1,6 +1,6 @@
 # SWaP privacy notice
 
-Updated 24 September 2026. Applies to SWaP’s Chrome extension and userscript.
+Updated 4 October 2026. Applies to SWaP’s Chrome extension and userscript.
 
 SWaP helps a private group synchronize Stremio Web playback, chat and optionally make audio/video calls. The project does not operate an application backend or add analytics, advertising, tracking pixels or a chat database. Third-party connection services are still involved.
 
@@ -9,6 +9,7 @@ SWaP helps a private group synchronize Stremio Web playback, chat and optionally
 - **Room membership and chat:** your chosen display name, membership/call status and chat messages are shared with your room. The host forwards chat and keeps up to 100 messages in memory. New members receive recent history, limited to 100 messages / 128 KiB.
 - **Watching together:** room members receive title/episode identifiers, display title/description, playback time/duration, buffering state and sanitized source/release labels. When available, a room-salted file fingerprint helps compare streams. SWaP does not forward raw stream URLs, configured addon URLs, headers or Stremio login credentials. Display-label filtering is heuristic: do not put secrets in titles, filenames, your name or chat.
 - **Calls:** camera/microphone media is sent to other call participants only after you select Join video call or Audio only and the browser allows capture. Camera off releases SWaP’s video track; leaving the call stops its camera and microphone tracks. Mic mute/hold-to-talk mutes transmission while keeping the microphone acquired.
+- **Room authentication:** room codes, derived keys and short-lived call capabilities are used to admit participants and authorize calls. Optional user-provided TURN usernames/credentials are used only with the configured relay service and are retained in the tab’s session storage. SWaP does not request your Stremio account password or read authentication cookies.
 - **Connection metadata:** the default PeerJS signaling service, Google STUN and PeerJS TURN services receive connection information. TURN may relay encrypted traffic. Direct WebRTC connections can reveal IP addresses to participants. Optional servers you configure receive relevant connection information instead.
 - **Title lookup:** a best-effort Cinemeta request uses the public IMDb title/type ID, with credentials and referrer omitted. That provider sees ordinary request/network metadata.
 - **Distribution:** GitHub receives ordinary download/update request metadata. A future Chrome Web Store installation would also be subject to Google’s distribution policies. There is no store listing yet.

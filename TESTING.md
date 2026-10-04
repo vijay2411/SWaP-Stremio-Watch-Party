@@ -1,3 +1,16 @@
+# SWaP 4.2.4 store preparation checks
+
+Executed 2026-10-04.
+
+- **116 tests and 4 package checks passed.** The extension ZIP contains only its allowlisted runtime files; store/demo HTML and artwork are not included.
+- Three browser screenshots show the current shared application at 1280 × 800: Minimalism dark lobby, an actual two-tab room/chat exchange, and Pixel art light. Participants/messages are fictional. No camera/microphone was opened. The room and temporary tabs were closed afterward.
+- Validated all three screenshot JPEGs as RGB 1280 × 800; small promo as RGB 440 × 280; marquee as RGB 1400 × 560; store icon as RGBA 128 × 128 with artwork bounds (16, 16)–(112, 112). The listing icon is identical to the packaged 128 px icon.
+- The 16/32/48 px toolbar assets, shared application source, extension access and room protocol are unchanged from 4.2.3. The privacy notice clarifies existing behavior.
+
+The store kit and reviewer instructions do not claim completed Google review. A clean-profile reviewer walkthrough with playable Stremio content, cross-network calls, and the earlier documented real-stream/device checks remain to be completed before broad public rollout.
+
+---
+
 # SWaP 4.2.3 icon verification
 
 Executed 2026-10-04 in the local browser fixture.

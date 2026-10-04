@@ -4,7 +4,7 @@ import { resolve, extname } from 'node:path';
 import { PeerServer } from 'peer';
 const types = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.webm': 'video/webm', '.txt': 'text/plain', '.map': 'application/json' };
 const base = resolve('.');
-const publicFiles = new Set(['/demo/index.html', '/demo/stremio-layout.html', '/demo/extension.html', '/demo/extension.js', '/demo/extension.js.map', '/demo/fixtures.js', '/demo/swap.js', '/demo/swap.js.map', '/demo/sample.webm', '/dist/SWaP.user.js', '/dist/THIRD-PARTY-NOTICES.txt', '/design/index.html']);
+const publicFiles = new Set(['/demo/index.html', '/demo/stremio-layout.html', '/demo/extension.html', '/demo/extension.js', '/demo/extension.js.map', '/demo/fixtures.js', '/demo/swap.js', '/demo/swap.js.map', '/demo/sample.webm', '/dist/SWaP.user.js', '/dist/THIRD-PARTY-NOTICES.txt', '/design/index.html', '/store/preview.html', '/store/promo.html']);
 PeerServer({ host: '127.0.0.1', port: 9001, path: '/sidekick', allow_discovery: false });
 createServer(async (req, res) => {
   try {

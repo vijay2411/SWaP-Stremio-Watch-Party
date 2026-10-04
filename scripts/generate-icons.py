@@ -13,5 +13,12 @@ d.rounded_rectangle(box((23, 37, 81, 91)), radius=12 * scale, fill='#f4f4f5')
 d.polygon([box(p) for p in [(85, 51), (107, 39), (107, 89), (85, 77)]], fill='#d5f88a')
 d.polygon([box(p) for p in [(44, 49), (44, 79), (66, 64)]], fill='#172011')
 for size in (16, 32, 48, 128):
-    image.resize((size, size), Image.Resampling.LANCZOS).save(out / f'icon{size}.png', optimize=True)
+    if size == 128:
+        # Web Store square artwork: 96px with 16px transparent padding.
+        icon = Image.new('RGBA', (128, 128))
+        artwork = image.crop(box((2, 2, 126, 126))).resize((96, 96), Image.Resampling.LANCZOS)
+        icon.paste(artwork, (16, 16))
+    else:
+        icon = image.resize((size, size), Image.Resampling.LANCZOS)
+    icon.save(out / f'icon{size}.png', optimize=True)
 print('Generated 16, 32, 48 and 128px extension icons.')

@@ -1,0 +1,1 @@
+No remote code is used. All executable JavaScript, including PeerJS, is bundled in the extension. Network connections exchange room messages, WebRTC signaling/media and optional public movie metadata as data; fetched JavaScript, WebAssembly, eval and remote script injection are not used.

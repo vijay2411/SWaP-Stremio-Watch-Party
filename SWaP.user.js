@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SWaP — Stremio Watch Party
 // @namespace    https://github.com/vijay2411/SWaP-Stremio-Watch-Party
-// @version      4.2.3
+// @version      4.2.4
 // @description  One room code. Synchronized playback, group chat, and opt-in video calls. No account or Firebase setup.
 // @match        https://web.stremio.com/*
 // @homepageURL  https://github.com/vijay2411/SWaP-Stremio-Watch-Party

@@ -1,0 +1,1 @@
+Enable private watch parties on Stremio Web by synchronizing each participant's own video playback and providing room chat and optional audio/video calls, joined through a room code.
