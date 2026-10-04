@@ -4,6 +4,8 @@
 #quick-toggle{display:flex;align-items:center;gap:6px;border:0;border-left:1px solid var(--border);border-radius:0;font-size:12px;padding:12px}
 #folded-actions button:focus-visible{outline-offset:-4px}
 #quick-toggle svg{width:16px;height:16px}
+#folded-actions #launcher,#folded-actions #quick-toggle{cursor:grab;touch-action:none;user-select:none}
+#folded-actions[data-dragging=true] #launcher,#folded-actions[data-dragging=true] #quick-toggle{cursor:grabbing;transform:none}
 #chat-float{position:fixed;left:50%;transform:translateX(-50%);bottom:78px;width:440px;max-width:calc(100vw - 24px);max-height:calc(100dvh - 90px - var(--call-strip-height,0px));pointer-events:none}
 #chat-float #chat-previews{position:static;width:100%;max-width:none;max-height:inherit;overflow:auto;scrollbar-width:thin}
 #quick-reply{display:flex;align-items:center;gap:6px;width:350px;min-width:0;padding:4px 7px;border-left:1px solid var(--border)}

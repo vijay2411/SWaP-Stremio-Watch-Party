@@ -59,6 +59,7 @@ esbuild bundles JavaScript, CSS and PeerJS locally. Production builds remove dem
 | `src/room.js` | PeerJS connections, membership, host forwarding, policies and history. |
 | `src/room-auth.js`, `src/wire.js`, `src/protocol.js` | Admission proofs, frame bounds/encoding, validated protocol fields. |
 | `src/player.js`, `src/media.js` | Player sync, buffering policy, media metadata and comparison. |
+| `src/folded-position.js` | Folded-bar dragging, viewport bounds, preview anchoring and per-tab position. |
 | `src/calls.js`, `src/hold-to-talk.js` | Device tracks, call admission, media connections and talk controls. |
 | `src/chat-scroll.js`, `src/chat-previews.js`, `src/quick-reply.js` | Chat scrolling, preview queue and shared reply draft. |
 | `src/layout.js`, `src/layout.css`, `src/style.css` | Reserved player space, sidebar/call strip and common styles. |

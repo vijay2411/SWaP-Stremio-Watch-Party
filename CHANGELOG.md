@@ -1,3 +1,10 @@
+# SWaP 4.2.6
+
+- Makes the folded Watch together / Reply bar draggable from either button, with normal clicks preserved. Reply inputs and send/close controls do not initiate dragging.
+- Keeps the bar within the viewport when resizing, entering/exiting fullscreen or expanding the reply composer. Chat previews follow the bar and appear below it near the top edge.
+- Remembers position in per-tab session storage. Alt + arrow keys move the focused bar; Home restores its default bottom-center position. The behavior lives in its own UI module and ships in both distributions.
+- Includes eight drag regression checks and browser verification. The 4.2.5 call fixes remain unchanged, as does the unresolved relay verification requirement before store publication.
+
 # SWaP 4.2.5
 
 - Fixes the v4 call setup race: an authenticated offer arriving before the caller's active status waits up to eight seconds for consent. The recipient still checks current membership, capability, protocol and local opt-in before answering; outsiders and duplicate offers are rejected.

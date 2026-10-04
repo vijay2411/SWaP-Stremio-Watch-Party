@@ -10,6 +10,7 @@ import { clockTime, compareMedia } from './media.js';
 import { ChatScroll } from './chat-scroll.js';
 import { ChatPreviews } from './chat-previews.js';
 import { QuickReply } from './quick-reply.js';
+import { FoldedPosition } from './folded-position.js';
 import quickReplyCss from './quick-reply.css';
 import previewCss from './chat-previews.css';
 import { WatchLayout } from './layout.js';
@@ -105,10 +106,14 @@ function mount(initiallyHidden) {
   const seen = new Set();
   const chatScroll = new ChatScroll($('messages'), $('message-list'), $('new-messages'), $('session'));
   const layout = new WatchLayout(host, root);
+  const foldedPosition = new FoldedPosition($('folded-actions'), $('chat-float'));
+  $('launcher').title = 'Click to open · Drag to move · Alt + arrows to move · Home to reset';
+  $('quick-toggle').title = 'Click to reply · Drag to move · Alt + arrows to move · Home to reset';
   const updateLayout = () => {
     layout.set(!concealed && !!room?.active, !concealed && !$('panel').hidden, !concealed && !!calls?.stream);
     hide('folded-actions', concealed || !$('panel').hidden);
     quickReply.setAvailable(!concealed && !!room?.active && $('panel').hidden);
+    foldedPosition.refresh();
   };
   const notice = (message, expected) => { if (expected && $('notice').textContent !== expected) return; clearTimeout(noticeTimer); $('notice').textContent = message; hide('notice', !message); };
   try { $('name').value = localStorage.getItem('sidekick-name') || ''; $('options').value = sessionStorage.getItem('sidekick-options') || ''; } catch { /* Storage is optional. */ }

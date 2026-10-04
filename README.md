@@ -19,7 +19,7 @@ Choose **one method**. Everyone in the room needs SWaP.
 
 ### Chrome extension
 
-1. **[Download the extension ZIP](https://github.com/vijay2411/SWaP-Stremio-Watch-Party/releases/download/v4.2.5/SWaP-Chrome-4.2.5.zip)** and extract it to a folder you'll keep.
+1. **[Download the extension ZIP](https://github.com/vijay2411/SWaP-Stremio-Watch-Party/releases/download/v4.2.6/SWaP-Chrome-4.2.6.zip)** and extract it to a folder you'll keep.
 2. Open `chrome://extensions` → enable **Developer mode** → **Load unpacked** → select the extracted folder containing `manifest.json`.
 3. Reload Stremio Web. Click **Watch together**, or pin SWaP to Chrome's toolbar.
 
@@ -38,7 +38,7 @@ The extension is a preview; a Chrome Web Store install is upcoming. Disable old 
 
 - ▶️ **Playback:** host control is the default. In **Room preferences**, allow everyone to control playback and choose whether to wait for buffering friends. Waiting is on by default, for up to 20 seconds.
 - 🔎 **Stream checks:** **Watching now** shows the title and timing. Expand **Stream details** or **Everyone's playback** for more; check warnings before starting.
-- 💬 **Chat:** minimize the sidebar to give the movie more space. New messages appear briefly; **Reply** lets you answer from the bottom bar.
+- 💬 **Chat:** minimize the sidebar to give the movie more space. New messages appear briefly; **Reply** lets you answer from the folded bar. Drag **Watch together** or **Reply** to move it anywhere on screen; the position stays saved for this tab.
 - 📹 **Calls:** choose **Join video call** or **Audio only**. Pin a friend, toggle your camera/mic, or choose **Hold to talk** and a shortcut key.
 - 🎨 **Appearance:** choose from 11 themes and switch light/dark mode with the sun/moon button. Minimalism dark is the default; your choice affects only you.
 
@@ -129,7 +129,7 @@ Tampermonkey checks for userscript updates according to its settings; reload Str
 - [Usage guide](USAGE.md) · [Install & troubleshooting](INSTALL.md) · [Chrome extension guide](CHROME-EXTENSION.md) · [Store publishing kit](CHROME-WEB-STORE.md)
 - [Privacy](PRIVACY.md) · [Security review](SECURITY.md) · [Testing & known limits](TESTING.md)
 - [Developer guide](DEVELOPING.md) · [Theme editing](src/themes/README.md) · [Changelog](CHANGELOG.md) · [Version history](VERSIONS.md)
-- **Available:** [v4.2.5](https://github.com/vijay2411/SWaP-Stremio-Watch-Party/releases/tag/v4.2.5), as a userscript and unpacked Chrome extension preview. Centered controls in both, corrected fullscreen layout, a Join button that stays on one line, and Hide/Show in the extension. 131 tests and 4 package checks passed; call rejoining and received media were checked with local/public signaling. The forced public-relay check failed from the test network, so restrictive-network calls still need verification before store publication. [Verification](TESTING.md) · [Changes](CHANGELOG.md)
+- **Available:** [v4.2.6](https://github.com/vijay2411/SWaP-Stremio-Watch-Party/releases/tag/v4.2.6), as a userscript and unpacked Chrome extension preview. Draggable folded controls in both, corrected fullscreen layout, a Join button that stays on one line, and Hide/Show in the extension. 139 tests and 4 package checks passed; call rejoining and received media were checked with local/public signaling. The forced public-relay check failed from the test network, so restrictive-network calls still need verification before store publication. [Verification](TESTING.md) · [Changes](CHANGELOG.md)
 - **Next:** Chrome Web Store installation and automatic extension updates; more testing across networks/devices and larger calls.
 - **Under consideration:** room admission and moderation controls. No release dates promised.
 

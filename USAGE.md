@@ -90,3 +90,9 @@ Use the [installation guide](INSTALL.md) for missing buttons, room joins and dev
 Leave **Connection settings** empty for the public defaults. Custom signaling settings must agree across participants; relay setup is covered in the [developer guide](DEVELOPING.md#connections-and-cost).
 
 [Privacy notice](PRIVACY.md) · [Security review](SECURITY.md) · [Tested behavior and remaining limits](TESTING.md)
+
+## Move the folded controls
+
+Drag either **Watch together** or **Reply** to place the folded bar anywhere on screen. A click still opens the sidebar or reply composer. The position is saved for the current tab, including refreshes; chat previews follow the bar. The bar stays inside the viewport when the window or composer changes size.
+
+Keyboard: focus either button, then use **Alt + arrow keys** to move it. Press **Home** to restore its default bottom-center position. This works in both the userscript and extension.

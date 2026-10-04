@@ -1,3 +1,18 @@
+# SWaP 4.2.6 folded-bar dragging verification
+
+Executed 2026-10-04.
+
+- **139 automated tests and 4 package checks passed.** Eight new cases cover click/drag separation, accidental activation, screen-edge bounds, preview placement, composer growth, viewport resize, cancelled drags, excluded input/right-click/other-pointer events, optional storage, keyboard movement and reset.
+- In the browser, dragging from both Watch together and Reply moved the folded bar without opening either control. Subsequent ordinary clicks worked; a quick reply from the moved bar reached the other room participant.
+- Dragging to the upper-left clamped the bar to (12,12). Opening the reply composer kept it inside the viewport. At a 390 px viewport, the composer measured 366 px wide with 12 px margins; the viewport override was restored afterward.
+- A burst of 12 incoming messages remained in the chat. During the queue, compact previews sat below the bar near the top edge and moved above it when the bar was dragged toward the bottom-right, leaving an 8 px gap.
+- Fullscreen entry/exit kept the bar visible; Alt + Up moved it 16 px. The lobby bar restored the exact tested position (965.72,602) after refresh. Home cleared its inline positioning and restored the default center.
+- The temporary room was ended; no camera or microphone hardware was activated. These checks used the shared application in a local Stremio-shaped fixture, not the installed extension on a live stream.
+
+The drag behavior is shared by both packages. Room/call logic and Chrome permissions are unchanged. The failed relay test and pending real-world voice checks documented for 4.2.5 below remain unresolved; this UI patch does not clear the store-publication hold.
+
+---
+
 # SWaP 4.2.5 call reliability verification
 
 Executed 2026-10-04. This is a call reliability patch, not approval to submit to the Chrome Web Store.

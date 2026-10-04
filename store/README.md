@@ -1,6 +1,6 @@
 # SWaP store upload kit
 
-Start with [CHROME-WEB-STORE.md](../CHROME-WEB-STORE.md) for every dashboard field. The installation ZIP and this listing kit are different uploads: only `SWaP-Chrome-4.2.5.zip` belongs in **Package**.
+Start with [CHROME-WEB-STORE.md](../CHROME-WEB-STORE.md) for every dashboard field. The installation ZIP and this listing kit are different uploads: only `SWaP-Chrome-4.2.6.zip` belongs in **Package**.
 
 ## Copy and paste
 
