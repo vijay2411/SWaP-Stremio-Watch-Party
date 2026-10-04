@@ -20,7 +20,8 @@ Each version is a successive commit of **the same `SWaP.user.js` file**. Tags le
 | 4.1.0 | [v4.1.0](https://github.com/vijay2411/SWaP-Stremio-Watch-Party/tree/v4.1.0) | First Chrome extension preview; compatible protocol 4 |
 | 4.1.1 | [v4.1.1](https://github.com/vijay2411/SWaP-Stremio-Watch-Party/tree/v4.1.1) | Chat retry fix and live installed-extension verification; protocol 4 |
 | 4.2.0 | [v4.2.0](https://github.com/vijay2411/SWaP-Stremio-Watch-Party/tree/v4.2.0) | Centered folded controls and extension Hide/Show; compatible protocol 4 |
-| 4.2.1 | [v4.2.1](https://github.com/vijay2411/SWaP-Stremio-Watch-Party/tree/v4.2.1) | Current: keeps fullscreen movie, subtitles and controls aligned; protocol 4 |
+| 4.2.1 | [v4.2.1](https://github.com/vijay2411/SWaP-Stremio-Watch-Party/tree/v4.2.1) | Keeps fullscreen movie, subtitles and controls aligned; protocol 4 |
+| 4.2.2 | [v4.2.2](https://github.com/vijay2411/SWaP-Stremio-Watch-Party/tree/v4.2.2) | Current: fixes Join button wrapping across themes; protocol 4 |
 
 `Sidekick-Stremio-v2.user.js` and `Sidekick-Stremio-v2-old.user.js` are identical v2.0.1 files, so they share one archive commit. No v1 file was available in the saved releases; none has been fabricated. The [manifest](versions.json) records original filenames and SHA-256 values.
 

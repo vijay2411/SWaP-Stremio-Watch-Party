@@ -1,3 +1,8 @@
+# SWaP 4.2.2
+
+- Keeps the Join label on one line when page text-wrapping styles reach the panel. The room-code field takes the remaining row width, so the button cannot be squeezed into a tall, broken label.
+- Applies the shared CSS fix to all themes in the userscript and Chrome extension. Room protocol and Chrome permissions are unchanged.
+
 # SWaP 4.2.1
 
 - Fixes player-container fullscreen: the movie, subtitles and controls share the available viewing area beside the sidebar or below the call strip. Controls no longer end up behind the sidebar/video layer.

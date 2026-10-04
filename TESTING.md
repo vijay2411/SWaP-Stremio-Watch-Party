@@ -1,3 +1,16 @@
+# SWaP 4.2.2 Join-button verification
+
+Executed 2026-10-04 in the local Stremio-shaped browser fixture.
+
+- Reproduced the reported Pixel art “Joi / n” split using the opt-in `?local=1&synthetic=1&hostcss=1` fixture. It applies inherited page typography and `word-break: break-all` to the shadow host. Before the fix, the button was 68 px tall beside a 47 px room-code field; afterward both were 47 px tall.
+- **66 browser layout checks passed:** all 11 themes in light and dark mode at 1280, 390 and 320 px viewport widths, with the inherited wrapping stress enabled. Join stayed on one line, the row did not overflow, and the input retained usable width.
+- Clicking Join connected a second fixture tab to a local WebRTC room and displayed “In sync · room paused”. The test room was ended afterward; no camera or microphone was started.
+- **116 tests and 4 extension package checks passed.** Both distributions were rebuilt from the shared CSS, with unchanged Chrome permissions.
+
+These are local browser fixture checks. This patch has not been visually rechecked on the installed extension in a real Stremio tab. Earlier live tests and their limitations are recorded below.
+
+---
+
 # SWaP 4.2.1 follow-up verification
 
 Executed 2026-10-04 using the Stremio-shaped browser fixture, real local WebRTC and synthetic media. This follow-up found and fixed a fullscreen layout bug; the released 4.2.0 tag remains unchanged.
