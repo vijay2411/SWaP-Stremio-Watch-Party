@@ -1,3 +1,11 @@
+# SWaP 4.2.5
+
+- Fixes the v4 call setup race: an authenticated offer arriving before the caller's active status waits up to eight seconds for consent. The recipient still checks current membership, capability, protocol and local opt-in before answering; outsiders and duplicate offers are rejected.
+- Cleans up unopened/failed calls before retrying, monitors incoming connections after answering, handles prolonged disconnections, and keeps the setup timeout until both connection and remote stream exist. Late events cannot remove a replacement call.
+- Replaces the generic TURN timeout message with call-specific retry feedback and clears only the matching warning on recovery/departure. Removing a call tile now pauses and detaches its media element.
+- Adds deterministic regression tests and a repeatable real-WebRTC browser suite measuring received audio and decoded video, repeated rejoining, camera changes, three-person calls and cleanup.
+- **Known release limit:** default-route tests passed with local and public signaling, but forced bundled TURN connectivity failed from the tested network (zero UDP/TCP relay candidates). Cross-device voice/echo checks and a working restrictive-network route remain required before Chrome Web Store submission. This patch does not promise universal call connectivity.
+
 # SWaP 4.2.4
 
 - Prepares a Chrome Web Store submission kit: field-by-field guidance, listing text, reviewer instructions, privacy-category mapping, three actual-UI demo screenshots and promotional graphics. Store submission remains a separate publisher action.

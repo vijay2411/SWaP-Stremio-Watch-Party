@@ -58,7 +58,8 @@ test('calls require an active member and the recipient’s current room capabili
  const calls=new Calls(room,()=>{});calls.stream={getTracks:()=>[]};let accepted=0;calls.bind=()=>accepted++;
  const make=(peer,token)=>({peer,metadata:{v:VERSION,token},closed:false,answered:false,close(){this.closed=true;},answer(){this.answered=true;}});
  try {
-  for(const c of [make('outsider',room.callToken),make('friend',randomToken()),make('friend',undefined),make('inactive',room.callToken)]){calls.incoming(c);assert.equal(c.closed,true);assert.equal(c.answered,false);}
+  for(const c of [make('outsider',room.callToken),make('friend',randomToken()),make('friend',undefined)]){calls.incoming(c);assert.equal(c.closed,true);assert.equal(c.answered,false);}
+  const waiting=make('inactive',room.callToken);calls.incoming(waiting);assert.equal(waiting.answered,false);assert.equal(accepted,0);
   const c=make('friend',room.callToken);calls.incoming(c);assert.equal(c.answered,true);assert.equal(accepted,1);
   room.closed=true;const late=make('friend',room.callToken);calls.incoming(late);assert.equal(late.closed,true);
  }finally{calls.close();}

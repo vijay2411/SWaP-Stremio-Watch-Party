@@ -1,12 +1,12 @@
 # Chrome Web Store submission guide
 
-Prepared 4 October 2026 for **SWaP 4.2.4**. This is a preparation kit, not confirmation of Google review or store publication. Use the existing draft item; do not create a second listing.
+Prepared 4 October 2026 for **SWaP 4.2.5**. This is a preparation kit, not confirmation of Google review or store publication. Use the existing draft item; do not create a second listing.
 
 ## 1. Package
 
-In **Package**, upload [SWaP-Chrome-4.2.4.zip](https://github.com/vijay2411/SWaP-Stremio-Watch-Party/releases/download/v4.2.4/SWaP-Chrome-4.2.4.zip). Confirm the dashboard displays version **4.2.4**. Do not upload the store-assets ZIP, userscript, GitHub source ZIP or an enclosing folder.
+In **Package**, upload [SWaP-Chrome-4.2.5.zip](https://github.com/vijay2411/SWaP-Stremio-Watch-Party/releases/download/v4.2.5/SWaP-Chrome-4.2.5.zip). Confirm the dashboard displays version **4.2.5**. Do not upload the store-assets ZIP, userscript, GitHub source ZIP or an enclosing folder.
 
-The new patch gives the 128 px store icon its recommended 96 px artwork and transparent padding. It retains the latest Join fix, consistent logo, centered controls and Hide/Show. Runtime permissions and room behavior are unchanged.
+This patch fixes call setup ordering and reconnect cleanup in both distributions. It retains the latest Join fix, consistent logo, centered controls and Hide/Show; Chrome permissions and room protocol remain unchanged. **Hold store submission:** default-route media tests passed, but the bundled TURN relay did not provide a working route from the test network. Complete a different-device/network voice test and verify a usable relay path before publication. See [TESTING.md](TESTING.md).
 
 ## 2. Store listing: exact field values
 

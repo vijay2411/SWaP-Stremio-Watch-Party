@@ -29,6 +29,14 @@ The [store kit](store/README.md) documents the development-only presentation fix
 
 Close test calls/rooms when finished. See [TESTING.md](TESTING.md) for executed checks and remaining gaps.
 
+### Repeatable call reliability checks
+
+Open `http://127.0.0.1:9000/demo/call-reliability.html?local=1` and press **Run reliability suite**. This creates real PeerJS/WebRTC peers using the production `Room` and `Calls` classes, generated camera frames and a generated audio tone. It measures received audio bytes/signal and decoded video frames; it does not capture devices or play audio through speakers. The suite exercises delayed call status, mute, camera changes, repeated rejoining, a three-person mesh, forced connection closure, chat/state continuity and cleanup. It stops on failure and releases its media.
+
+Omit `?local=1` to exercise public signaling. Use `?relay=1` to force the bundled public TURN routes without direct ICE fallback. The UDP/TCP probe buttons report relay-candidate counts and error codes without printing IP addresses or credentials. These development fixtures are never packaged in the userscript or extension.
+
+A passed default-routing test does not prove TURN availability, physical voice quality or cross-network reliability. Before publishing, repeat on different devices/networks with headphones, confirm both people hear each other, exercise Hold to talk and camera-off hardware release, and test a working authorized TURN service. Do not place private relay credentials in the repository.
+
 ## Build outputs
 
 | Output | Purpose |

@@ -250,9 +250,14 @@ function mount(initiallyHidden) {
     if (location.hostname === 'web.stremio.com') { e.preventDefault(); location.hash = new URL($('open-title').href).hash; }
   };
   const tiles = new Map(); let pinned = null;
+  function removeTile(id) {
+    const el = tiles.get(id); if (!el) return;
+    const video = el.querySelector('video'); video.pause(); video.srcObject = null;
+    el.remove(); tiles.delete(id);
+  }
   function tile(id, stream, self = false) {
     if (tiles.get(id)?.querySelector('video').srcObject === stream) return;
-    tiles.get(id)?.remove();
+    removeTile(id);
     const el = document.createElement('div'); el.className = `tile ${self ? 'self' : ''}`;
     const initial = document.createElement('div'); initial.className = 'initial'; initial.textContent = 'Camera off';
     initial.hidden = stream.getVideoTracks().length > 0;
@@ -263,7 +268,7 @@ function mount(initiallyHidden) {
     video.addEventListener('loadeddata', refreshTiles);
     stream.getVideoTracks().forEach(t => { t.addEventListener('mute', refreshTiles); t.addEventListener('unmute', refreshTiles); });
     video.play().catch(error => {
-      if (error.name !== 'NotAllowedError' || !room?.active) return;
+      if (error.name !== 'NotAllowedError' || !room?.active || tiles.get(id) !== el) return;
       soundBlocked = true; $('sound').textContent = 'Enable sound';
       notice('Tap “Enable sound” to hear your friends.');
     });
@@ -283,6 +288,7 @@ function mount(initiallyHidden) {
     if (type === 'camera') { $('camera').textContent = value ? 'Camera on' : 'Camera off'; $('camera').setAttribute('aria-pressed', String(value)); refreshTiles(); }
 
     if (type === 'notice') notice(value);
+    if (type === 'clearNotice') notice('', value);
     if (type === 'busy') { $('call-start').disabled = false; $('audio-start').disabled = false; }
     if (type === 'local') {
       const active = !!value; holdToTalk.setEnabled(false); hide('talk-shortcut', true); hide('audio-options', !active); hide('call-join', active); hide('call-controls', !active); hide('tiles', !active); hide('call-intro', active);
@@ -295,11 +301,11 @@ function mount(initiallyHidden) {
         const camera = value.getVideoTracks().length > 0;
         $('camera').textContent = camera ? 'Camera on' : 'Camera off'; $('camera').disabled = false; $('camera').setAttribute('aria-pressed', String(camera));
         $('sound').textContent = 'Sound on'; $('sound').setAttribute('aria-pressed', 'true');
-      } else { $('tiles').replaceChildren(); tiles.clear(); pinned = null; }
+      } else { for (const id of tiles.keys()) removeTile(id); pinned = null; }
       updateLayout();
     }
     if (type === 'remote') tile(value.id, value.stream);
-    if (type === 'remove') { tiles.get(value)?.remove(); tiles.delete(value); refreshTiles(); }
+    if (type === 'remove') { removeTile(value); if (pinned === value) pinned = null; refreshTiles(); }
   }
   const startCall = video => { if (!calls) return; $('call-start').disabled = true; $('audio-start').disabled = true; calls.start(video); };
   $('call-start').onclick = () => startCall(true); $('audio-start').onclick = () => startCall(false);

@@ -19,7 +19,7 @@ Choose **one method**. Everyone in the room needs SWaP.
 
 ### Chrome extension
 
-1. **[Download the extension ZIP](https://github.com/vijay2411/SWaP-Stremio-Watch-Party/releases/download/v4.2.4/SWaP-Chrome-4.2.4.zip)** and extract it to a folder you'll keep.
+1. **[Download the extension ZIP](https://github.com/vijay2411/SWaP-Stremio-Watch-Party/releases/download/v4.2.5/SWaP-Chrome-4.2.5.zip)** and extract it to a folder you'll keep.
 2. Open `chrome://extensions` → enable **Developer mode** → **Load unpacked** → select the extracted folder containing `manifest.json`.
 3. Reload Stremio Web. Click **Watch together**, or pin SWaP to Chrome's toolbar.
 
@@ -129,7 +129,7 @@ Tampermonkey checks for userscript updates according to its settings; reload Str
 - [Usage guide](USAGE.md) · [Install & troubleshooting](INSTALL.md) · [Chrome extension guide](CHROME-EXTENSION.md) · [Store publishing kit](CHROME-WEB-STORE.md)
 - [Privacy](PRIVACY.md) · [Security review](SECURITY.md) · [Testing & known limits](TESTING.md)
 - [Developer guide](DEVELOPING.md) · [Theme editing](src/themes/README.md) · [Changelog](CHANGELOG.md) · [Version history](VERSIONS.md)
-- **Available:** [v4.2.4](https://github.com/vijay2411/SWaP-Stremio-Watch-Party/releases/tag/v4.2.4), as a userscript and unpacked Chrome extension preview. Centered controls in both, corrected fullscreen layout, a Join button that stays on one line, and Hide/Show in the extension. 116 tests, 4 package checks and browser checks passed. [Verification](TESTING.md) · [Changes](CHANGELOG.md)
+- **Available:** [v4.2.5](https://github.com/vijay2411/SWaP-Stremio-Watch-Party/releases/tag/v4.2.5), as a userscript and unpacked Chrome extension preview. Centered controls in both, corrected fullscreen layout, a Join button that stays on one line, and Hide/Show in the extension. 131 tests and 4 package checks passed; call rejoining and received media were checked with local/public signaling. The forced public-relay check failed from the test network, so restrictive-network calls still need verification before store publication. [Verification](TESTING.md) · [Changes](CHANGELOG.md)
 - **Next:** Chrome Web Store installation and automatic extension updates; more testing across networks/devices and larger calls.
 - **Under consideration:** room admission and moderation controls. No release dates promised.
 

@@ -1,0 +1,7 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SWaP call reliability checks</title>
+<style>body{margin:32px;max-width:1000px;background:#101412;color:#ecf4ee;font:16px/1.5 system-ui}button{padding:12px 20px;font:inherit;background:#c4e8ac;border:0;border-radius:8px;cursor:pointer}pre{white-space:pre-wrap;padding:20px;background:#1c241f;border-radius:12px}video{width:160px;height:90px;border:1px solid #789}#videos{display:flex;flex-wrap:wrap;gap:8px}.muted{color:#b6c2ba}</style>
+<h1>SWaP · Call reliability</h1><p>Real WebRTC connections with generated camera frames and a test tone. No camera or microphone hardware, recordings or speaker output.</p>
+<p class="muted">Tests the shared call and authenticated room code. This is a single-device integration test; separate devices and networks still need verification.</p>
+<button id="run">Run reliability suite</button> <button id="stop" disabled>Stop and release media</button>
+<p><button id="probe-udp">Probe bundled TURN · UDP</button> <button id="probe-tcp">Probe bundled TURN · TCP</button></p>
+<pre id="results" role="status">Ready.</pre><div id="videos"></div><script src="/demo/call-reliability.js"></script></html>

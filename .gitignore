@@ -12,6 +12,8 @@ demo/swap.js
 demo/swap.js.map
 demo/extension.js
 demo/extension.js.map
+demo/call-reliability.js
+demo/call-reliability.js.map
 demo/sidekick.js
 demo/sidekick.js.map
 .DS_Store

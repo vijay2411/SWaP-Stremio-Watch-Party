@@ -14,6 +14,7 @@ export async function configureAudio(track) {
 export class Calls {
   constructor(room, emit) {
     this.room = room; this.emit = emit; this.links = new Map(); this.members = []; this.generation = 0;
+    this.pendingOffers = new Map(); this.watchers = new Map(); this.failures = new Map();
     this.retry = setInterval(() => this.reconcile(), 5000);
   }
   async start(video = true) {
@@ -37,7 +38,14 @@ export class Calls {
   }
   roster(members) {
     this.members = members;
-    for (const [id, call] of this.links) if (!members.some(m => m.id === id && m.call)) { this.links.delete(id); call.close(); this.emit('remove', id); }
+    for (const [id, message] of this.failures) if (!members.some(m => m.id === id && m.call)) {
+      this.failures.delete(id); this.emit('clearNotice', message);
+    }
+    for (const [id, call] of this.links) if (!members.some(m => m.id === id && m.call)) this.drop(call);
+    for (const [id, pending] of this.pendingOffers) {
+      if (!members.some(m => m.id === id)) this.discardPending(id);
+      else if (this.room.members.get(id)?.call) { this.discardPending(id, false); this.incoming(pending.call); }
+    }
     this.reconcile();
   }
   reconcile() {
@@ -45,32 +53,90 @@ export class Calls {
     for (const m of this.members) {
       // Exactly one initiator per pair prevents duplicate calls and offer glare.
       if (m.call && validToken(m.callToken) && m.id !== this.room.id && this.room.id < m.id && !this.links.has(m.id)) {
-        const call = this.room.peer.call(m.id, this.stream, { metadata: { v: VERSION, token: m.callToken } });
-        if (call) this.bind(call);
+        try {
+          const call = this.room.peer.call(m.id, this.stream, { metadata: { v: VERSION, token: m.callToken } });
+          if (call) this.bind(call);
+        } catch { this.failed(m.id, 'couldn’t start'); }
       }
     }
   }
   incoming(call) {
-    if (!this.stream || this.room.closed || !this.room.members.get(call.peer)?.call || !validToken(this.room.callToken) || call.metadata?.token !== this.room.callToken || call.metadata?.v !== VERSION || this.links.has(call.peer)) { call.close(); return; }
-    this.bind(call); call.answer(this.stream);
+    if (!this.stream || this.room.closed || !this.room.members.has(call.peer) || !validToken(this.room.callToken) || call.metadata?.token !== this.room.callToken || call.metadata?.v !== VERSION || this.links.has(call.peer) || this.pendingOffers.has(call.peer)) { call.close(); return; }
+    if (!this.room.members.get(call.peer).call) {
+      // Signaling offers and the authenticated room roster travel independently.
+      // Wait briefly for call consent; never answer solely because a token matches.
+      const timer = setTimeout(() => this.discardPending(call.peer), 8000);
+      this.pendingOffers.set(call.peer, { call, timer }); return;
+    }
+    this.bind(call);
+    try { call.answer(this.stream); this.watchers.get(call)?.watch(); }
+    catch { this.drop(call); this.failed(call.peer, 'couldn’t start'); }
+  }
+  discardPending(id, close = true) {
+    const pending = this.pendingOffers.get(id); if (!pending) return;
+    clearTimeout(pending.timer); this.pendingOffers.delete(id);
+    if (close) pending.call.close();
+  }
+  failed(id, reason) {
+    const name = this.room.members?.get(id)?.name || 'your friend';
+    const message = `The call with ${name} ${reason}. Retrying automatically; if it keeps failing, both leave and rejoin the call.`;
+    this.failures.set(id, message); this.emit('notice', message);
+  }
+  drop(call) {
+    const watcher = this.watchers.get(call);
+    if (watcher) watcher.dispose();
+    else { if (this.links.get(call.peer) === call) { this.links.delete(call.peer); this.emit('remove', call.peer); } call.close(); }
   }
   bind(call) {
     this.links.set(call.peer, call);
+    let ended = false, pc, disconnectTimer, remote, connected = false;
     const timeout = setTimeout(() => {
       if (this.links.get(call.peer) !== call) return;
-      call.close(); cleanup(); this.emit('notice', 'A call couldn’t connect. Try rejoining the call; restrictive networks may need a TURN relay.');
+      const reason = call.open === false ? 'wasn’t answered in time' : 'couldn’t establish a media connection';
+      dispose(); this.failed(call.peer, reason);
     }, 18000);
     const cleanup = () => {
-      clearTimeout(timeout);
+      if (ended) return; ended = true;
+      clearTimeout(timeout); clearTimeout(disconnectTimer);
+      pc?.removeEventListener('connectionstatechange', changed);
+      pc?.removeEventListener('iceconnectionstatechange', changed);
+      this.watchers.delete(call);
       if (this.links.get(call.peer) === call) { this.links.delete(call.peer); this.emit('remove', call.peer); }
     };
+    // Delete our ownership first: PeerJS close can synchronously emit events.
+    const dispose = () => { cleanup(); call.close(); };
+    const ready = () => {
+      if (!connected || !remote || ended) return;
+      clearTimeout(timeout);
+      const message = this.failures.get(call.peer);
+      if (message) { this.failures.delete(call.peer); this.emit('clearNotice', message); }
+    };
+    const changed = () => {
+      if (ended || this.links.get(call.peer) !== call) return;
+      const state = pc?.connectionState || pc?.iceConnectionState;
+      connected = state === 'connected' || state === 'completed';
+      if (connected) { clearTimeout(disconnectTimer); disconnectTimer = null; ready(); }
+      if (state === 'failed' || state === 'closed') {
+        dispose(); this.failed(call.peer, 'lost its media connection');
+      } else if (state === 'disconnected' && !disconnectTimer) {
+        // A brief network change can recover without restarting a healthy call.
+        disconnectTimer = setTimeout(() => { dispose(); this.failed(call.peer, 'stayed disconnected'); }, 8000);
+      }
+    };
+    const watch = () => {
+      if (ended || pc || !call.peerConnection) return;
+      pc = call.peerConnection;
+      pc.addEventListener('connectionstatechange', changed);
+      pc.addEventListener('iceconnectionstatechange', changed); changed();
+    };
+    this.watchers.set(call, { dispose, watch });
     call.on('stream', stream => {
-      if (!this.stream || this.room.closed || this.links.get(call.peer) !== call) { stream.getTracks().forEach(t => t.stop()); call.close(); return; }
-      clearTimeout(timeout); this.emit('remote', { id: call.peer, stream });
+      if (ended || !this.stream || this.room.closed || this.links.get(call.peer) !== call) { stream.getTracks().forEach(t => t.stop()); call.close(); return; }
+      remote = stream; watch(); ready(); this.emit('remote', { id: call.peer, stream });
     });
-    call.on('close', cleanup); call.on('error', () => { call.close(); cleanup(); });
-    const pc = call.peerConnection;
-    pc?.addEventListener('connectionstatechange', () => { if (pc.connectionState === 'failed') { call.close(); cleanup(); } });
+    call.on('close', cleanup);
+    call.on('error', () => { if (ended) return; dispose(); this.failed(call.peer, 'was interrupted'); });
+    watch();
   }
   toggle(kind) {
     const tracks = this.stream?.getTracks().filter(t => t.kind === kind) || [];
@@ -112,15 +178,17 @@ export class Calls {
         call.videoSender = sender;
         try { await sender.replaceTrack(track); return; } catch { /* Reconnect if the codec cannot accept this track. */ }
       }
-      if (track) { call.close(); if (this.links.get(call.peer) === call) this.links.delete(call.peer); this.emit('remove', call.peer); }
+      if (track) this.drop(call);
     }));
     this.reconcile();
   }
   stop() {
     this.generation++; this.pending = false;
-    this.room.callStatus(false);
     const stream = this.stream; this.stream = null; stream?.getTracks().forEach(t => t.stop());
-    for (const call of this.links.values()) call.close(); this.links.clear(); this.emit('local', null);
+    for (const id of this.pendingOffers.keys()) this.discardPending(id);
+    for (const call of this.links.values()) this.drop(call);
+    for (const message of this.failures.values()) this.emit('clearNotice', message);
+    this.failures.clear(); this.room.callStatus(false); this.emit('local', null);
   }
   close() { clearInterval(this.retry); this.stop(); }
 }

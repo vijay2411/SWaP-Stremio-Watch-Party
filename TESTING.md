@@ -1,3 +1,48 @@
+# SWaP 4.2.5 call reliability verification
+
+Executed 2026-10-04. This is a call reliability patch, not approval to submit to the Chrome Web Store.
+
+## Automated checks
+
+- **131 tests, zero failures; 4 extension package checks passed.** Fifteen new regressions exercise media-offer/roster ordering, bounded pending calls, missing consent, outsiders/wrong tokens/protocol, token revalidation, incoming-PC setup timing, stream-before-ICE timeout, temporary/prolonged disconnect, unopened-call cleanup, audio-only upgrade, stale call events, retries and matching-warning cleanup.
+- Security checks still reject unauthorized members and incorrect room capabilities. Pending offers are not answered until the admitted member is marked active, and are closed after eight seconds, local hangup or member departure.
+- Gitleaks 8.30.1 found no secrets in the source export and unpacked extension (redacted scan). The production dependency audit reported zero known vulnerabilities. All 19 userscript hashes match the version manifest, preserving all 18 prior tags.
+- Userscript and extension were rebuilt from shared source. Room protocol 4 and Chrome permissions are unchanged. Both friends should update to 4.2.5 so both ends include the fixes.
+
+## Real WebRTC browser checks
+
+The new development fixture uses the production Room/Calls classes in separate PeerJS instances, with generated video frames and non-silent audio tones. Tests ran with loopback signaling and public PeerJS signaling. They use one device/browser; they do not simulate separate physical networks. Remote audio is measured through a silent Web Audio analyser, with RTP byte counts and decoded video frames also checked. The test tone is never connected audibly to speakers.
+
+Passed:
+
+- Deliberately delay a guest's active-call announcement by 1.5 seconds: the media offer arrives first, waits, and connects without the old 18-second warning.
+- Two-way received audio signal and increasing decoded video frames. Muting produces a near-zero received signal; unmuting restores it.
+- Camera off ends/removes its local video track while audio continues; camera on restores received video.
+- Five alternating host/guest hangup/rejoin cycles per suite run, verifying received media and that old captured tracks ended.
+- Audio-only in both directions without a video track; adding a camera reconnects and delivers video.
+- Three-person call: all six incoming audio paths, four video paths with one participant remaining audio-only, and one media connection per pair.
+- Forced closure of a media peer connection recovers automatically and received audio/video resume.
+- Chat and playback-state transport remain functional during the call. A separately created room receives none of the tested room's chat or calls.
+- Ending the host room closes the other participants' calls; all 20 generated tracks per completed suite run end and no call/pending-offer/watch entries remain.
+
+Two additional browser tabs exercised the actual shared-app and extension-adapter interfaces: video/audio-only join, Hold to talk selection and button release, camera-off labels on the other tab, audio-only-to-video upgrade, Sound off, Hide/Show during an active call, leave/rejoin and confirmed room end. Both tabs reported zero active synthetic cameras/microphones afterward. This adapter fixture is not a live installed-extension test.
+
+## Failed relay check — publication remains on hold
+
+With public default TURN routing forced (`iceTransportPolicy: relay`), the guest could not establish the room connection. Separate 15-second UDP and TCP probes of the bundled PeerJS TURN endpoints each returned **zero relay candidates and ICE error 701**. This is evidence that the fallback did not work from this test environment; it does not distinguish a service outage, DNS/network filtering or browser/environment restrictions, and does not prove a global outage.
+
+Default-route success cannot establish arbitrary-network reliability. No relay provider or private credentials were added. Before store submission:
+
+1. Install/reload 4.2.5 on both ends and test a real Stremio call between different devices/networks, including audio-only, camera off/on and repeated rejoin.
+2. With headphones, verify speech in both directions, mute/hold-to-talk and leaving. Acoustic echo suppression, physical camera LEDs and hardware-device quality were not measured in these synthetic tests.
+3. Verify an authorized working TURN path for restrictive networks. Re-run the relay test with that service; do not treat the current public fallback as verified.
+
+The current patch has not been re-tested on the installed extension with real camera/microphone hardware. Earlier hardware tests below apply to their recorded older versions. Store submission has not occurred.
+
+Repeatable instructions are in [DEVELOPING.md](DEVELOPING.md#repeatable-call-reliability-checks).
+
+---
+
 # SWaP 4.2.4 store preparation checks
 
 Executed 2026-10-04.
