@@ -1,3 +1,19 @@
+# SWaP 4.2.1 follow-up verification
+
+Executed 2026-10-04 using the Stremio-shaped browser fixture, real local WebRTC and synthetic media. This follow-up found and fixed a fullscreen layout bug; the released 4.2.0 tag remains unchanged.
+
+- **116 tests and 4 package checks passed.** New regression checks select the common fullscreen player shell and restore it on exit even when resize fires before fullscreenchange.
+- Before the fix, a 1512 px fullscreen viewport gave the movie 1142 px beside the sidebar, but the pause control extended to 1492 px and controls/subtitles were obscured. After the fix, all player layers stay inside the same 1142 px viewing area. Existing player DOM children are not moved.
+- A synthetic call’s folded strip reserves 112 px at the top of fullscreen while preserving the bottom controls. Leaving the call restores the full 1512 × 949 movie area. Exiting fullscreen restores the normal common shell: in a 1280 px viewport the movie is 910 px wide and the rightmost control ends at 890 px, clear of the sidebar.
+- A guest with a 2:00 duration against the host’s 1:00 duration sees the edition warning and remains paused while the host plays. Restoring the matching duration resumes synchronization. Different release labels produce the expected warning without falsely claiming file identity.
+- Two guests sent 12 messages each while the host was folded. All **24 messages** arrived from both senders; all 24 previews appeared and expired. Measured intervals were **2.000–2.006 seconds**, lifetimes **5.000–5.006 seconds**, with at most **3** simultaneous previews.
+- The full buffering timeout displayed the guest’s name, waited, then resumed with “Continuing without …”. The 20-second policy measured **20.999 seconds** between rendered wait/continue states because player status is checked once per second. It is not a hard real-time 20-second deadline.
+- Host/guest rooms were ended, all synthetic camera/microphone counters reached zero, temporary tabs were closed and the viewport override was reset. No real hardware capture was used in this follow-up.
+
+The fullscreen patch was exercised in the local player-container fixture; it has not been re-tested on an installed extension with a real Stremio stream. Earlier installed-extension checks are recorded below. Native video-element/OS fullscreen, different networks/devices, physical LEDs, acoustic echo and large-call capacity remain outside this follow-up’s verification.
+
+---
+
 # SWaP 4.2.0 verification
 
 Final checks executed 2026-10-04. This is a userscript and unpacked Chrome extension preview; Chrome Web Store publication is separate.

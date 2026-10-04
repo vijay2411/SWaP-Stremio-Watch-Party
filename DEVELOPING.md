@@ -23,6 +23,8 @@ Open `http://127.0.0.1:9000/demo/stremio-layout.html?local=1&synthetic=1` in mul
 
 To exercise the extension adapter with the shared app, open `http://127.0.0.1:9000/demo/extension.html?local=1&synthetic=1`. Its outside-app Show/Hide buttons simulate only Chrome’s internal popup messaging. Use it for visibility, reload persistence, hidden chat and room-end recovery; it does not prove installed extension isolation. The fixture and its generated bundle are excluded from release packages.
 
+The synthetic fixture’s **Capture UI timings** button observes rendered notifications and buffering status: it reports preview gaps/lifetimes, the maximum simultaneous previews and the full buffer-wait duration. Send bursts from multiple guest tabs while the host is folded. **Fullscreen player** and **Exit fullscreen** exercise the common movie/control/subtitle shell. Fixture controls stay above the normal dock to avoid clicking through to call controls.
+
 Close test calls/rooms when finished. See [TESTING.md](TESTING.md) for executed checks and remaining gaps.
 
 ## Build outputs

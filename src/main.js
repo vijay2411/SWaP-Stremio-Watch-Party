@@ -122,11 +122,6 @@ function mount(initiallyHidden) {
   $('minimize').onclick = () => panel(false);
   root.addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Escape' && !e.isComposing && !$('end-dialog').open) { e.preventDefault(); if (quickReply.isOpen) quickReply.close(true); else panel(false); } });
   root.addEventListener('keyup', e => e.stopPropagation());
-  // Keep the overlay visible when Stremio puts its player container in fullscreen.
-  document.addEventListener('fullscreenchange', () => {
-    const parent = document.fullscreenElement;
-    (parent && !['VIDEO', 'IFRAME'].includes(parent.tagName) ? parent : document.body).append(host);
-  });
   $('settings-save').onclick = () => {
     try { parseOptions($('options').value); sessionStorage.setItem('sidekick-options', $('options').value); notice('Connection settings saved for this tab.'); $('settings').open = false; }
     catch (e) { notice(e.message); }

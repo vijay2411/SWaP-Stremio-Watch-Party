@@ -3,7 +3,10 @@
 export function chooseStage(video, { body, fullscreenElement, host, width, height }) {
   const candidates = [];
   for (let p = video.parentElement; p && p !== body; p = p.parentElement) {
-    if (p === fullscreenElement || p.contains(host)) break;
+    // A fullscreen shell cannot itself shrink: the browser forces its viewport
+    // dimensions. Reserve a grid area for its existing child layers instead.
+    if (p === fullscreenElement) return p;
+    if (p.contains(host)) break;
     // Stremio's video, subtitle, navigation and playback controls are sibling
     // layers under this shell. Resizing the video layer alone splits them apart.
     if ([...p.classList].some(name => name.includes('player-container'))) return p;
@@ -21,8 +24,16 @@ export class WatchLayout {
     this.host = host; this.root = root;
     this.style = document.createElement('style'); document.head.append(this.style);
     this.refresh = () => this.update();
+    this.fullscreenChanged = () => {
+      const parent = document.fullscreenElement;
+      // Move our own overlay before selecting/caching the player shell. On exit
+      // it must no longer make the old fullscreen shell look like an UI ancestor.
+      (parent && !['VIDEO', 'IFRAME'].includes(parent.tagName) ? parent : document.body).append(this.host);
+      this.target?.removeAttribute('data-sidekick-stage'); this.target = null;
+      this.update();
+    };
     window.addEventListener('resize', this.refresh);
-    document.addEventListener('fullscreenchange', this.refresh);
+    document.addEventListener('fullscreenchange', this.fullscreenChanged);
     this.timer = setInterval(this.refresh, 1000);
   }
   set(active, open, call) { Object.assign(this, { active, open, call }); this.update(); }
@@ -44,7 +55,9 @@ export class WatchLayout {
     this.video = video; this.fullscreen = document.fullscreenElement;
     if (this.target !== target) { this.target?.removeAttribute('data-sidekick-stage'); this.target = target; target?.setAttribute('data-sidekick-stage', ''); }
     // Reserve a strip instead of assuming every movie has letterboxing.
-    this.style.textContent = target ? `[data-sidekick-stage]{position:fixed!important;inset:${top}px ${right}px ${bottom}px 0!important;width:calc(100vw - ${right}px)!important;height:calc(100dvh - ${top + bottom}px)!important;--dynamic-viewport-width:calc(100vw - ${right}px);--dynamic-viewport-height:calc(100dvh - ${top + bottom}px);max-width:none!important;max-height:none!important;margin:0!important;object-fit:contain!important;background:#08090c!important;z-index:1000!important;border:0!important;border-radius:0!important}[data-sidekick-stage] video{width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;object-fit:contain!important;margin:0!important;border:0!important;border-radius:0!important}` : '';
+    this.style.textContent = !target ? '' : target === this.fullscreen
+      ? `[data-sidekick-stage]{display:grid!important;grid-template-columns:minmax(0,1fr) ${right}px!important;grid-template-rows:${top}px minmax(0,1fr) ${bottom}px!important;--dynamic-viewport-width:calc(100vw - ${right}px);--dynamic-viewport-height:calc(100dvh - ${top + bottom}px)}[data-sidekick-stage]>:not(#sidekick-root){grid-area:2/1/3/2!important;min-width:0!important;min-height:0!important}`
+      : `[data-sidekick-stage]{position:fixed!important;inset:${top}px ${right}px ${bottom}px 0!important;width:calc(100vw - ${right}px)!important;height:calc(100dvh - ${top + bottom}px)!important;--dynamic-viewport-width:calc(100vw - ${right}px);--dynamic-viewport-height:calc(100dvh - ${top + bottom}px);max-width:none!important;max-height:none!important;margin:0!important;object-fit:contain!important;background:#08090c!important;z-index:1000!important;border:0!important;border-radius:0!important}[data-sidekick-stage] video{width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;object-fit:contain!important;margin:0!important;border:0!important;border-radius:0!important}`;
   }
   reset() { this.set(false, this.open, false); }
 }

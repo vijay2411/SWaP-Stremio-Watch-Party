@@ -1,3 +1,9 @@
+# SWaP 4.2.1
+
+- Fixes player-container fullscreen: the movie, subtitles and controls share the available viewing area beside the sidebar or below the call strip. Controls no longer end up behind the sidebar/video layer.
+- Restores the common player shell when exiting fullscreen, including browsers that dispatch resize before fullscreenchange. Only SWaP’s own overlay moves; the player’s DOM children stay in place.
+- Adds fullscreen regression coverage and demo-only UI timing diagnostics for notification cadence and buffering waits. Both distributions include the fix; room protocol and Chrome permissions are unchanged.
+
 # SWaP 4.2.0
 
 - Centers the folded Watch together bar, horizontal quick reply and message previews at the bottom of the screen in both distributions, leaving the bottom-right Stremio controls clear.
