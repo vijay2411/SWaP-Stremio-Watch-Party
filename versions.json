@@ -103,5 +103,13 @@
     "originalFiles": [
       "SWaP.user.js"
     ]
+  },
+  {
+    "version": "4.2.0",
+    "tag": "v4.2.0",
+    "sha256": "03792c26b33ece6f1aa1a44e4960f9e858f2a9de00d65915b5ecaaa87cef6ddd",
+    "originalFiles": [
+      "SWaP.user.js"
+    ]
   }
 ]

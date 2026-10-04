@@ -40,4 +40,4 @@ The main installation link follows current releases. Tampermonkey checks updates
 - **No camera/mic:** use the browser’s site-permission controls, then try joining the call again. Audio only works without enabling your camera. Camera off releases SWaP’s video track, but another app/tab could still be using the device.
 - **Echo:** try headphones or Microphone mode → Hold to talk. Browser echo cancellation cannot guarantee speaker isolation on every device.
 
-Extension 4.1 and userscript 4.0/4.1 can share rooms. There is no SWaP Chrome Web Store listing yet. Unpacked extension updates are manual; see the [extension guide](CHROME-EXTENSION.md#update-or-remove).
+Extension 4.1/4.2 and userscript 4.0–4.2 can share rooms. There is no SWaP Chrome Web Store listing yet. Unpacked extension updates are manual; see the [extension guide](CHROME-EXTENSION.md#update-or-remove).

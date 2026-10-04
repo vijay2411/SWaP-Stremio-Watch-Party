@@ -21,6 +21,8 @@ Open `http://127.0.0.1:9000/demo/stremio-layout.html?local=1&synthetic=1` in mul
 - The demo runs the shared app in the page context. Its fixtures do **not** override camera/microphone APIs in Chrome's isolated extension context. Live extension tests can activate real hardware and need deliberate device permission.
 - The development server binds to loopback, validates the Host header and serves an explicit file allowlist. It is not a production room backend.
 
+To exercise the extension adapter with the shared app, open `http://127.0.0.1:9000/demo/extension.html?local=1&synthetic=1`. Its outside-app Show/Hide buttons simulate only Chrome’s internal popup messaging. Use it for visibility, reload persistence, hidden chat and room-end recovery; it does not prove installed extension isolation. The fixture and its generated bundle are excluded from release packages.
+
 Close test calls/rooms when finished. See [TESTING.md](TESTING.md) for executed checks and remaining gaps.
 
 ## Build outputs
@@ -30,7 +32,7 @@ Close test calls/rooms when finished. See [TESTING.md](TESTING.md) for executed 
 | `SWaP.user.js`, `dist/SWaP.user.js` | Bundled installable userscript. |
 | `dist/chrome-extension/` | Complete folder for Chrome's **Load unpacked**. |
 | `dist/SWaP-Chrome-<version>.zip` and `.zip.sha256` | Extension distribution/upload package and checksum. |
-| `demo/swap.js`, `demo/swap.js.map` | Local demo bundle and source map. |
+| `demo/swap.js`, `demo/extension.js` and their `.map` files | Local app/extension-adapter demo bundles and source maps. |
 
 Edit source files, then rebuild; don't hand-edit the generated userscript. `dist/`, dependency folders and demo bundles are ignored by Git. `npm run build:extension` builds only the extension. Builds do not update an installed copy automatically: reload the installed extension and its Stremio tabs after replacing files.
 
@@ -49,7 +51,7 @@ esbuild bundles JavaScript, CSS and PeerJS locally. Production builds remove dem
 | `src/chat-scroll.js`, `src/chat-previews.js`, `src/quick-reply.js` | Chat scrolling, preview queue and shared reply draft. |
 | `src/layout.js`, `src/layout.css`, `src/style.css` | Reserved player space, sidebar/call strip and common styles. |
 | `src/appearance.js`, `src/themes.js`, `src/themes/` | Appearance controls, persistence and modular themes. |
-| `extension/toolbar.js`, `extension/popup.*` | Narrow status/open-panel messaging and toolbar UI. |
+| `extension/app.js`, `extension/toolbar.js`, `extension/popup.*` | Tab visibility preference, fixed status/show/hide messaging and toolbar UI. |
 | `scripts/`, `tests/`, `demo/` | Build/dev tooling, checks and browser fixtures. |
 
 Themes are separate modules containing light/dark palettes and scoped CSS. They should never change room or media logic. Keep Minimalism as the fallback, and follow the [theme authoring guide](src/themes/README.md).
@@ -86,7 +88,7 @@ Read [SECURITY.md](SECURITY.md) before changing network, metadata or device code
 
 WebRTC encrypts transport, but the signaling service remains trusted: the room authentication transcript is not bound to DTLS certificate fingerprints. It does not defend against an actively malicious signaling service relaying proofs while substituting endpoints. Invited members can share their code or record media; display names are not verified identities.
 
-The extension uses a top-level, isolated content script on Stremio Web only, with no additional Chrome API permissions, background worker, external messaging or remote runtime code. Its toolbar accepts exact, internal status/open commands. The userscript runs in the page context with `@grant none`. Both share Stremio's DOM and same-origin preference storage; neither protects against a compromised page/browser. Legacy `sidekick-*` keys and the mount marker remain for compatibility.
+The extension uses a top-level, isolated content script on Stremio Web only, with no additional Chrome API permissions, background worker, external messaging or remote runtime code. Its toolbar accepts exact, internal status/show/hide commands and returns only projected boolean state. A tab-scoped `swap-extension-hidden` sessionStorage flag is read only by the extension adapter; it cannot hide the userscript. Hiding suppresses UI/previews and releases reserved player space without stopping an active room/call. The userscript runs in the page context with `@grant none`. Both share Stremio's DOM and same-origin preference storage; neither protects against a compromised page/browser. Legacy `sidekick-*` keys and the mount marker remain for compatibility.
 
 ## Make and verify changes
 

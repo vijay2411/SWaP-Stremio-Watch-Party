@@ -1,3 +1,22 @@
+# SWaP 4.2.0 verification
+
+Final checks executed 2026-10-04. This is a userscript and unpacked Chrome extension preview; Chrome Web Store publication is separate.
+
+- `npm test`: **114 passed, 0 failed**. Extension checks cover authorized status/show/hide commands, rejected senders/extra fields, status-data projection, per-tab visibility across reloads, restore, blocked storage, duplicate installs, active-room wording and failed messaging.
+- `npm run build` and `npm run test:package`: passed, with **4 package checks**. No added permissions; extension-only visibility storage/messaging is absent from the userscript bundle.
+- In the local shared-app browser demo, the collapsed launcher, 494 px horizontal reply bar and 440 px notification area are centered on the content viewport. The reply bar remains 46 px tall; a 390 px viewport override fits it horizontally. The viewport override was restored afterward.
+- Two demo tabs exchanged a centered quick reply. A burst of 12 received fixture messages displayed compact previews above the centered bar.
+- The extension-adapter browser fixture verified lobby Hide/Show and reload persistence, a connected room receiving all 12 guest messages while hidden, no visible hidden previews, and preservation of the reply draft. Showing restored the sidebar with the complete chat; a hidden guest stayed hidden after the host ended the room and could then restore the lobby.
+- With synthetic devices, hiding an active call removed all SWaP UI and released reserved player space: at a 520 × 852 viewport the movie changed from a 383 px docked height (704 px under the folded call strip) to the full 852 px. The synthetic call remained active while hidden; Leave call released both tracks. All local fixture rooms/calls were ended and their tabs closed.
+- The installed extension was updated to **4.2.0** in desktop Chrome and reloaded on real Stremio Web. Its centered launcher was visible. The actual toolbar Hide/Show worked from the lobby, hid both launcher and sidebar, stayed hidden after a tab reload, and restored the sidebar.
+- In a temporary live room, the popup showed the active-room warning; Hide kept the room connected and Show restored its controls. No real camera or microphone was activated during these 4.2 checks. The temporary live room was ended and Stremio was left with the centered launcher folded.
+
+- `npm audit`: **0 known vulnerabilities** on 2026-10-04. Gitleaks 8.30.1 found no secrets in the publication tree (including unpacked release files) or preceding 15-commit history, with redacted output and inline allow-comments disabled. All 13 prior tagged userscripts match their recorded hashes.
+
+Earlier 4.1.1 tests below cover public-signaling multi-tab playback/chat and a real hardware call. The 4.2 checks target visibility/layout; they do not repeat every older feature or prove different-network reliability, physical camera LEDs, acoustic echo suppression, native video fullscreen or large-call capacity.
+
+---
+
 # SWaP 4.1.1 extension verification
 
 Executed 2026-09-24. The installed Manifest V3 extension was tested on real Stremio Web in desktop Chrome. Initial checks used 4.1.0; the chat retry fix, room isolation and hardware-call checks used 4.1.1 after reloading the extension and participating tabs. Room protocol 4 is unchanged.

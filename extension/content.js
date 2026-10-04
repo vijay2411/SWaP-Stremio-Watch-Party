@@ -1,4 +1,3 @@
 import { mountSwap } from '../src/main.js';
-import { registerToolbar } from './toolbar.js';
-const app = mountSwap();
-registerToolbar(chrome.runtime, app);
+import { mountExtension } from './app.js';
+mountExtension(chrome.runtime, mountSwap);

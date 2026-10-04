@@ -1,3 +1,11 @@
+# SWaP 4.2.0
+
+- Centers the folded Watch together bar, horizontal quick reply and message previews at the bottom of the screen in both distributions, leaving the bottom-right Stremio controls clear.
+- Adds **Hide SWaP / Show SWaP** to the Chrome extension menu. Hiding is per tab and survives reloads when storage is available; it restores the movie's full layout and suppresses previews while keeping the room/call connected.
+- Preserves chat drafts and messages while hidden. Showing SWaP restores the sidebar. The popup explains that hiding does not leave a room or stop a call.
+- Keeps the userscript launcher available. No new Chrome permissions, background worker or network commands; the toolbar channel still accepts only its own popup and projects boolean status.
+- Room protocol 4 is unchanged. Chrome Web Store publication remains a later step.
+
 # SWaP 4.1.1
 
 - Fixes a stale sidebar error after a rejected chat send: a successful retry now clears that send warning while preserving unrelated notices, such as blocked call audio. This applies to both the sidebar and compact reply.

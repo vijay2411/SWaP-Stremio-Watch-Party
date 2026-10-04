@@ -17,15 +17,15 @@ Peers can independently record or share information they receive, and anyone wit
 
 ## Local storage and retention
 
-Your display name, theme, light/dark mode and talk key are stored in Stremio’s same-origin localStorage. Optional signaling/TURN settings are stored in that tab’s sessionStorage. These legacy storage keys remain shared between the extension and userscript for compatibility. They are not sent to a SWaP account service. Same-origin code can access this storage; avoid storing long-lived sensitive relay credentials.
+Your display name, theme, light/dark mode and talk key are stored in Stremio’s same-origin localStorage. Optional signaling/TURN settings are stored in that tab’s sessionStorage. The extension also remembers whether SWaP is hidden in that tab using the `swap-extension-hidden` sessionStorage flag. These legacy storage keys remain shared between the extension and userscript for compatibility. They are not sent to a SWaP account service. Same-origin code can access this storage; avoid storing long-lived sensitive relay credentials.
 
 Chats, room authentication keys and call capabilities are held in memory and cleared by SWaP when the room ends or the tab closes. Recipients may retain their own copies. The project does not control the logging/retention of external signaling, relay, metadata or distribution providers.
 
-Change preferences inside SWaP. To clear saved SWaP preferences without deleting other Stremio settings, remove the `sidekick-name`, `sidekick-theme`, `sidekick-color-mode` and `sidekick-talk-key` localStorage entries for `https://web.stremio.com`. Clear optional Connection settings using the empty value and Save for this tab, or close the tab. Removing the extension alone does not erase website storage.
+Change preferences inside SWaP. To clear saved SWaP preferences without deleting other Stremio settings, remove the `sidekick-name`, `sidekick-theme`, `sidekick-color-mode` and `sidekick-talk-key` localStorage entries for `https://web.stremio.com`. Clear optional Connection settings using the empty value and Save for this tab, or close the tab. Use **Show SWaP** in the extension menu to clear its hidden flag, or close the tab. Hiding SWaP removes its interface but keeps any active room/call running; use **Leave call** to stop device access. Removing the extension alone does not erase website storage.
 
 ## Chrome extension access
 
-The extension’s packaged content script runs only on `https://web.stremio.com/*`, in Chrome’s isolated JavaScript world and the top-level page. It can read/change that page to coordinate playback and show the SWaP interface. It does not request browsing-history, cookies, downloads, tab capture, desktop capture, native messaging, or access to all websites. The toolbar sends only fixed status/open-panel messages to its own content script; it does not receive movie URLs, chat, room codes or camera data.
+The extension’s packaged content script runs only on `https://web.stremio.com/*`, in Chrome’s isolated JavaScript world and the top-level page. It can read/change that page to coordinate playback and show the SWaP interface. It does not request browsing-history, cookies, downloads, tab capture, desktop capture, native messaging, or access to all websites. The toolbar sends only fixed status/show/hide messages to its own content script; it does not receive movie URLs, chat, room codes or camera data.
 
 Isolation protects the extension’s JavaScript variables from ordinary page scripts, but the DOM and website storage remain shared. SWaP is not a protection against a compromised browser, Stremio page, installed extension, invited member or signaling provider.
 

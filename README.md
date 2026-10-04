@@ -15,11 +15,11 @@ Choose **one method**. Everyone in the room needs SWaP.
 
 1. Install [Tampermonkey](https://www.tampermonkey.net/) for your browser. On Chrome, enable **Allow User Scripts** in its extension settings ([help](https://www.tampermonkey.net/faq.php?locale=en&q=Q209)).
 2. Open **[Install SWaP](https://raw.githubusercontent.com/vijay2411/SWaP-Stremio-Watch-Party/main/SWaP.user.js)** and click **Install**.
-3. Reload [Stremio Web](https://web.stremio.com/). Look for **Watch together** at the bottom right.
+3. Reload [Stremio Web](https://web.stremio.com/). Look for **Watch together** at the bottom center.
 
 ### Chrome extension
 
-1. **[Download the extension ZIP](https://github.com/vijay2411/SWaP-Stremio-Watch-Party/releases/download/v4.1.1/SWaP-Chrome-4.1.1.zip)** and extract it to a folder you'll keep.
+1. **[Download the extension ZIP](https://github.com/vijay2411/SWaP-Stremio-Watch-Party/releases/download/v4.2.0/SWaP-Chrome-4.2.0.zip)** and extract it to a folder you'll keep.
 2. Open `chrome://extensions` → enable **Developer mode** → **Load unpacked** → select the extracted folder containing `manifest.json`.
 3. Reload Stremio Web. Click **Watch together**, or pin SWaP to Chrome's toolbar.
 
@@ -44,7 +44,8 @@ The extension is a preview; a Chrome Web Store install is upcoming. Disable old 
 
 ### Enable, pause or switch off
 
-- **Open/hide:** click **Watch together** or **Minimize panel**. Minimizing keeps your room and call active.
+- **Open/minimize:** click **Watch together** or **Minimize panel**. Minimizing keeps your room and call active.
+- **Hide (extension):** open the SWaP toolbar menu → **Hide SWaP**. Restore it with **Show SWaP**. This hides controls and message previews on that tab; your room and any call keep running.
 - **Leave:** **Leave call** stops your camera/mic while keeping you in the room. **Leave room** disconnects you; the host's **End room** asks for confirmation and disconnects everyone.
 - **Disable/re-enable:** toggle SWaP in Tampermonkey's dashboard or on `chrome://extensions`, then reload Stremio. Leave the room first; disabling alone may leave the already loaded page running until reload.
 
@@ -119,7 +120,7 @@ Tampermonkey checks for userscript updates according to its settings; reload Str
 - **Desktop Stremio Web:** `https://web.stremio.com/`, with a playable stream for each person. SWaP does not run in Stremio's desktop/TV apps or external players.
 - **Browser:** Chrome 120+ for the extension. The userscript needs a compatible Tampermonkey browser with WebRTC/Web Crypto; desktop Chrome is the live-tested setup. Other browsers/mobile are not fully verified.
 - **Calls:** camera/microphone permissions as needed; headphones recommended. Restrictive networks may need a TURN relay.
-- **Versions:** extension 4.1 and userscript 4.0/4.1 can share rooms. Old Sidekick v2/v3 cannot join; update everyone and create a new room. Use only one SWaP installation per page.
+- **Versions:** extension 4.1/4.2 and userscript 4.0–4.2 can share rooms. Old Sidekick v2/v3 cannot join; update everyone and create a new room. Use only one SWaP installation per page.
 
 <a id="guides--project-status"></a>
 
@@ -128,7 +129,7 @@ Tampermonkey checks for userscript updates according to its settings; reload Str
 - [Usage guide](USAGE.md) · [Install & troubleshooting](INSTALL.md) · [Chrome extension guide](CHROME-EXTENSION.md)
 - [Privacy](PRIVACY.md) · [Security review](SECURITY.md) · [Testing & known limits](TESTING.md)
 - [Developer guide](DEVELOPING.md) · [Theme editing](src/themes/README.md) · [Changelog](CHANGELOG.md) · [Version history](VERSIONS.md)
-- **Available:** [v4.1.1](https://github.com/vijay2411/SWaP-Stremio-Watch-Party/releases/tag/v4.1.1), as a userscript and unpacked Chrome extension preview. Live Chrome checks and 114 automated/package checks passed; see the test report for scope.
+- **Available:** [v4.2.0](https://github.com/vijay2411/SWaP-Stremio-Watch-Party/releases/tag/v4.2.0), as a userscript and unpacked Chrome extension preview. Centered controls in both; Hide/Show in the extension. 114 tests, 4 package checks and targeted live Chrome checks passed. [Verification](TESTING.md) · [Changes](CHANGELOG.md)
 - **Next:** Chrome Web Store installation and automatic extension updates; more testing across networks/devices and larger calls.
 - **Under consideration:** room admission and moderation controls. No release dates promised.
 

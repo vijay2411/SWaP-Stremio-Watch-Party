@@ -18,11 +18,11 @@ import { formatCode, normalizeCode, parseOptions, detailUrl } from './protocol.j
 
 // Both distributions share one app and one mount marker. Never start two rooms
 // over the same player if an older userscript or extension is still enabled.
-export function mountSwap() {
+export function mountSwap({ hidden = false } = {}) {
   if (document.getElementById('sidekick-root')) return null;
-  return mount();
+  return mount(hidden);
 }
-function mount() {
+function mount(initiallyHidden) {
   const paths = {
     together: '<rect x="2" y="4" width="14" height="13" rx="4"/><path d="m16 8 6-3v11l-6-3M6 21h8M10 17v4"/>',
     chat: '<path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8z"/>',
@@ -37,13 +37,15 @@ function mount() {
   };
   const icon = name => `<svg viewBox="0 0 24 24" aria-hidden="true">${paths[name]}</svg>`;
   const host = document.createElement('div'); host.id = 'sidekick-root';
+  let concealed = initiallyHidden;
+  host.hidden = concealed;
   host.style.cssText = 'position:fixed;z-index:2147483647;inset:0;pointer-events:none;';
   host.dataset.theme = readTheme(); host.dataset.mode = readMode();
   const themeOptions = THEMES.map(t => `<option value="${t.id}">${t.label}</option>`).join('');
   const root = host.attachShadow({ mode: 'open' });
   // Mark this as an authored user stylesheet: Dark Reader excludes .stylus styles,
   // preserving personal themes without disabling its styling of Stremio itself.
-  root.innerHTML = `<style class="sidekick-style stylus">${css}${themeCss}${themeStyles()}${layoutCss}${previewCss}${quickReplyCss}#panel,#launcher{pointer-events:auto}</style>
+  root.innerHTML = `<style class="sidekick-style stylus">${css}${themeCss}${themeStyles()}${layoutCss}${previewCss}${quickReplyCss}#panel,#launcher{pointer-events:auto}:host([hidden]){display:none!important}</style>
     <div id="folded-actions"><button id="launcher" aria-expanded="false" aria-controls="panel">${icon('together')} Watch together</button><button id="quick-toggle" aria-label="Quick reply" aria-controls="quick-reply" aria-expanded="false" title="Reply without opening the sidebar" hidden>${icon('chat')} Reply</button><section id="quick-reply" aria-label="Quick reply to room" hidden><p id="quick-context" hidden></p><form id="quick-form"><input id="quick-input" aria-label="Quick reply message" aria-describedby="quick-context" placeholder="Message your room…" maxlength="1000" autocomplete="off"><button id="quick-send" class="primary" aria-label="Send quick reply">${icon('send')}</button></form><p id="quick-status" role="status" aria-live="polite" hidden></p><button id="quick-close" class="icon" aria-label="Close quick reply">${icon('close')}</button></section></div>
     <section id="panel" aria-label="SWaP — Stremio Watch Party" hidden>
       <header class="row between"><div class="row brand">${icon('together')} SWaP <span class="pill">STREMIO WATCH PARTY</span></div><div id="header-actions" class="row"><button class="icon" id="color-mode" aria-label="Switch to light mode" title="Switch to light mode">${icon('sun')}</button><button class="icon" id="minimize" aria-label="Minimize panel">${icon('close')}</button></div></header>
@@ -102,15 +104,15 @@ function mount() {
   const chatScroll = new ChatScroll($('messages'), $('message-list'), $('new-messages'), $('session'));
   const layout = new WatchLayout(host, root);
   const updateLayout = () => {
-    layout.set(!!room?.active, !$('panel').hidden, !!calls?.stream);
-    hide('folded-actions', !$('panel').hidden);
-    quickReply.setAvailable(!!room?.active && $('panel').hidden);
+    layout.set(!concealed && !!room?.active, !concealed && !$('panel').hidden, !concealed && !!calls?.stream);
+    hide('folded-actions', concealed || !$('panel').hidden);
+    quickReply.setAvailable(!concealed && !!room?.active && $('panel').hidden);
   };
   const notice = (message, expected) => { if (expected && $('notice').textContent !== expected) return; clearTimeout(noticeTimer); $('notice').textContent = message; hide('notice', !message); };
   try { $('name').value = localStorage.getItem('sidekick-name') || ''; $('options').value = sessionStorage.getItem('sidekick-options') || ''; } catch { /* Storage is optional. */ }
   const panel = open => {
     hide('panel', !open); $('launcher').setAttribute('aria-expanded', String(open));
-    if (open) { previews.clear(); chatScroll.bottom(); } else $('launcher').focus();
+    if (open) { previews.clear(); chatScroll.bottom(); } else if (!concealed) $('launcher').focus();
     updateLayout();
   };
   const quickReply = new QuickReply(root, text => !!room?.chat(text), notice);
@@ -166,7 +168,7 @@ function mount() {
         renderPlayback();
         const url = key && detailUrl(key); hide('open-title', !url); if (url) $('open-title').href = url;
       });
-      updateLayout(); $('chat-input').focus();
+      updateLayout(); if (!concealed) $('chat-input').focus();
     }
     if (type === 'network') $('network').textContent = value;
     if (type === 'members') {
@@ -239,7 +241,7 @@ function mount() {
     meta.append(name, time); el.append(meta, text); area.append(el);
     while (area.querySelectorAll('.message').length > 100) area.querySelector('.message').remove();
     chatScroll.added(m.author === room.id);
-    previews.add(m, { open: !$('panel').hidden, own: m.author === room.id });
+    if (!concealed) previews.add(m, { open: !$('panel').hidden, own: m.author === room.id });
   }
   $('copy').onclick = async () => {
     try { await navigator.clipboard.writeText(formatCode(room.code)); $('copy').textContent = 'Copied!'; setTimeout(() => { $('copy').textContent = 'Copy code'; }, 1800); }
@@ -335,7 +337,11 @@ function mount() {
   window.addEventListener('pagehide', reset);
   if (__DEMO__) panel(true);
   return Object.freeze({
-    show: () => panel(true),
-    status: () => ({ inRoom: !!room?.active, open: !$('panel').hidden })
+    show: () => { concealed = false; host.hidden = false; panel(true); },
+    hide: () => {
+      concealed = true; host.hidden = true;
+      holdToTalk.release(); previews.clear(); $('end-dialog').close(); panel(false);
+    },
+    status: () => ({ inRoom: !!room?.active, open: !concealed && !$('panel').hidden, hidden: concealed })
   });
 }

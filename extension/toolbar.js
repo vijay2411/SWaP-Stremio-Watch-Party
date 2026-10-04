@@ -4,10 +4,12 @@ export function registerToolbar(runtime, app) {
   const listener = (message, sender, respond) => {
     if (sender?.id !== runtime.id || sender.url !== runtime.getURL('popup.html') ||
         !message || Array.isArray(message) || Object.keys(message).length !== 1 ||
-        !['swap:status', 'swap:show'].includes(message.type)) return false;
+        !['swap:status', 'swap:show', 'swap:hide'].includes(message.type)) return false;
     if (!app) { respond({ status: 'duplicate' }); return false; }
     if (message.type === 'swap:show') app.show();
-    respond({ status: 'ready', ...app.status() });
+    if (message.type === 'swap:hide') app.hide();
+    const { inRoom, open, hidden } = app.status();
+    respond({ status: 'ready', inRoom: !!inRoom, open: !!open, hidden: !!hidden });
     return false;
   };
   runtime.onMessage.addListener(listener);

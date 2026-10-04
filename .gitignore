@@ -10,6 +10,8 @@ releases/
 *.log
 demo/swap.js
 demo/swap.js.map
+demo/extension.js
+demo/extension.js.map
 demo/sidekick.js
 demo/sidekick.js.map
 .DS_Store

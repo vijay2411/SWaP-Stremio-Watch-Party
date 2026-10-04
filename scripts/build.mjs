@@ -20,6 +20,7 @@ const banner = `// ==UserScript==
 const options = { entryPoints: ['src/userscript.js'], bundle: true, format: 'iife', target: ['chrome110', 'firefox115', 'safari16.4'], loader: { '.css': 'text' }, legalComments: 'eof' };
 await build({ ...options, outfile: 'dist/SWaP.user.js', banner: { js: banner }, define: { __DEMO__: 'false' }, minify: true });
 await build({ ...options, outfile: 'demo/swap.js', define: { __DEMO__: 'true' }, sourcemap: true });
+await build({ ...options, entryPoints: ['demo/extension-fixture.js'], outfile: 'demo/extension.js', define: { __DEMO__: 'true' }, sourcemap: true });
 const peerLicense = await readFile('node_modules/peerjs/LICENSE', 'utf8');
 await writeFile('dist/THIRD-PARTY-NOTICES.txt', `PeerJS 1.5.5\n${peerLicense}\nOther bundled license notices are included at the end of SWaP.user.js.\n`);
 await writeFile('SWaP.user.js', await readFile('dist/SWaP.user.js'));

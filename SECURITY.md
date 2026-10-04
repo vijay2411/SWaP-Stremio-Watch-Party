@@ -1,6 +1,6 @@
 # Security & privacy review
 
-Review date: 2026-09-23. Extension packaging and live verification: 2026-09-24. Current supported version: **SWaP 4.1.1** (room protocol 4 unchanged). Older Sidekick tags are historical, unsupported snapshots and do not have the protections added here.
+Review date: 2026-09-23. Extension packaging and live verification: 2026-09-24. Visibility update checks: 2026-10-04. Current supported version: **SWaP 4.2.0** (room protocol 4 unchanged). Older Sidekick tags are historical, unsupported snapshots and do not have the protections added here.
 
 This is a first-party source/dependency review with targeted adversarial tests and local browser checks. It is not an independent penetration-test report, formal verification, or a guarantee that vulnerabilities cannot exist. No third-party service was attacked.
 
@@ -52,11 +52,11 @@ Chat, notifications and remote names use text rendering, never remote HTML. Ther
 
 Camera off stops and removes SWaP’s local video tracks; hangup stops microphone and camera tracks. Late permission/stream callbacks are guarded after leaving. Other tabs/apps can independently keep a device active. Audio mute/hold-to-talk keeps the microphone acquired while muting transmission; leaving the call releases it.
 
-## Chrome extension boundary (4.1)
+## Chrome extension boundary (4.1–4.2)
 
-The Manifest V3 extension bundles code locally and injects only into top-level `https://web.stremio.com/*` pages in the ISOLATED world. It requests no extra Chrome API permissions and has no background worker, external messaging, remote code loading or web-accessible resources. Its popup sends only fixed status/open-panel messages; the receiver checks the extension ID, exact popup URL and message shape. No room/chat/call data is exposed through that channel. Unit tests cover rejected senders and commands, and package checks cover the manifest, executable bundle and ZIP allowlist.
+The Manifest V3 extension bundles code locally and injects only into top-level `https://web.stremio.com/*` pages in the ISOLATED world. It requests no extra Chrome API permissions and has no background worker, external messaging, remote code loading or web-accessible resources. Its popup sends only fixed status/show/hide messages; the receiver checks the extension ID, exact popup URL and message shape. Only boolean room/visibility state is exposed through that channel, not room codes, chat, movie metadata or call media. Unit tests cover rejected senders and commands, and package checks cover the manifest, executable bundle and ZIP allowlist.
 
-Page scripts cannot ordinarily access isolated JavaScript variables, but the DOM and same-origin storage remain shared. The extension does not turn legacy localStorage/sessionStorage into a secure vault. Device access and room trust boundaries remain as described above. A malicious page can manipulate the player/UI; a mount marker prevents accidental duplicate instances, not intentional page interference.
+Page scripts cannot ordinarily access isolated JavaScript variables, but the DOM and same-origin storage remain shared. The extension does not turn legacy localStorage/sessionStorage into a secure vault. The 4.2 hide preference is a tab-scoped sessionStorage flag, used only by the extension. Hiding changes UI visibility, not room/call authorization, and does not stop media capture; the popup explains this. Device access and room trust boundaries remain as described above. A malicious page can manipulate the player/UI; a mount marker prevents accidental duplicate instances, not intentional page interference.
 
 ## Credentials and publication hygiene
 
@@ -66,7 +66,7 @@ All 11 historical script files were scanned before import with **Gitleaks 8.30.1
 
 PeerJS 1.5.5 bundles public shared TURN access values and a public signaling API label. These are upstream service defaults, not the repository owner’s personal API keys. Test values use `.example`/`.invalid`, obvious placeholders or synthetic data. Third-party library authors’ license notices are preserved.
 
-`npm audit` reported **0 known vulnerabilities** across the pinned production/development dependency tree on the review date. This is a point-in-time database result, not a guarantee against unknown vulnerabilities.
+`npm audit` reported **0 known vulnerabilities** across the pinned production/development dependency tree on 2026-10-04. This is a point-in-time database result, not a guarantee against unknown vulnerabilities.
 
 ## Verification and remaining limits
 

@@ -2,10 +2,12 @@
 
 [Back to README](README.md) · [Install SWaP](INSTALL.md)
 
+This guide covers SWaP 4.2.0, including the centered folded bar and extension Hide/Show menu.
+
 ## Start a room
 
 1. Open [Stremio Web](https://web.stremio.com/) and load the movie or episode you want to watch.
-2. Click **Watch together** at the bottom right and enter your display name. No SWaP account is needed.
+2. Click **Watch together** at the bottom center and enter your display name. No SWaP account is needed.
 3. Optionally expand **Room preferences** before creating the room: choose **Only the host** or **Everyone in the room** for playback control, and turn buffering waits on/off. Defaults are host control and waits enabled.
 4. Click **Create a room**. Expand **Room & viewing options**, select **Copy code**, and send it privately to your friends.
 5. Once everyone has joined and checked their stream, press **Play room**.
@@ -36,7 +38,7 @@ Room options, stream details and participant playback start folded. Failed, mism
 
 Type a message in the sidebar and press **Enter** or the send button. Chat follows new messages when you're at the bottom; if you've scrolled up, use the latest-message control to catch up.
 
-Minimize the panel to expand the movie. New messages appear as compact previews for five seconds. Queued previews start two seconds apart, with at most three visible at once. Select **Reply** beside **Watch together** to type in the horizontal bottom bar without reopening the sidebar.
+Minimize the panel to expand the movie. The folded bar and its compact message previews sit at the bottom center. Previews remain for five seconds. Queued previews start two seconds apart, with at most three visible at once. Select **Reply** beside **Watch together** to type in the horizontal bottom bar without reopening the sidebar.
 
 Your draft is shared between the sidebar and compact reply. Failed sends preserve it; wait briefly and retry. Sending too quickly can trigger the short per-person rate limit. Messages are plain text, and recent history is shared with people joining the room.
 
@@ -66,10 +68,16 @@ Minimalism dark is the default. Your theme/mode only changes your view and is re
 | Action | Result |
 | --- | --- |
 | Minimize panel | Hides the sidebar; room, chat and calls continue. |
+| Hide SWaP (extension menu) | Hides all SWaP controls/previews on this tab; the room and any call continue. |
+| Show SWaP (extension menu) | Restores the sidebar and its controls. |
 | Leave call | Releases SWaP's devices; room/chat stay connected. |
 | Leave room | Disconnects you and ends your call. |
 | End room (host) | Asks for confirmation, then disconnects everyone. |
 | Close/reload the host tab | Ends the party; a new room is needed. |
+
+**Hide without uninstalling (extension 4.2):** open Chrome’s SWaP toolbar menu and choose **Hide SWaP**. The movie regains the full viewing area, including space previously reserved for the sidebar/call strip. Reopen the same menu and choose **Show SWaP** to return. Chat continues in the room, but previews are suppressed while hidden; messages remain in the sidebar. An unfinished reply draft is preserved.
+
+Hiding is remembered for that tab across reloads when browser storage is available. It does not change other already open tabs or the Tampermonkey script. It does not stop playback synchronization, leave your room or release an active call’s devices; use **Leave call/room** for that. Closing/reloading a tab still ends its room/call as usual.
 
 To disable SWaP, leave the room, switch it off in **Tampermonkey → Dashboard** or **chrome://extensions**, then reload Stremio. Switch it on and reload to re-enable it. Reloading matters: disabling an installed script/extension does not reliably remove code already running in a page.
 

@@ -23,7 +23,9 @@ test('all manifest files exist; icons are PNGs of the declared sizes',async()=>{
 });
 test('extension bundles the app without userscript headers, demo fixtures or remote code loading',async()=>{
  const content=await readFile(new URL('content.js',folder),'utf8'),popup=await readFile(new URL('popup.html',folder),'utf8');
- assert.ok(content.includes('SWaP'));assert.ok(content.includes('swap:status'));
+ assert.ok(content.includes('SWaP'));assert.ok(content.includes('swap:status'));assert.ok(content.includes('swap:hide'));assert.ok(content.includes('swap-extension-hidden'));
+ const userscript=await readFile(new URL('../SWaP.user.js',import.meta.url),'utf8');
+ assert.doesNotMatch(userscript,/swap-extension-hidden|swap:hide/,'The userscript must not read an extension-only hidden preference or toolbar channel');
  for(const pattern of [/==UserScript==/,/synthetic=1/,/Synthetic camera/,/port:9001/,/new Function\s*\(/,/\beval\s*\(/,/sourceMappingURL/])assert.equal(pattern.test(content),false,`Unexpected bundle marker ${pattern}`);
  assert.doesNotMatch(popup,/<script[^>]*>\s*[^<\s]/i);assert.doesNotMatch(popup,/\son\w+=/i);assert.doesNotMatch(popup,/<script[^>]+src=["']https?:/i);
 });
