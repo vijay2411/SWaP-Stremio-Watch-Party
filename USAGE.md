@@ -2,7 +2,7 @@
 
 [Back to README](README.md) · [Install SWaP](INSTALL.md)
 
-This guide covers SWaP 4.2.2, including the centered folded bar and extension Hide/Show menu.
+This guide covers SWaP 4.2.3, including the centered folded bar and extension Hide/Show menu.
 
 ## Start a room
 

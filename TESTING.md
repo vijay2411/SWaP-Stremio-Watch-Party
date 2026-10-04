@@ -1,3 +1,16 @@
+# SWaP 4.2.3 icon verification
+
+Executed 2026-10-04 in the local browser fixture.
+
+- The shared header/launcher SVG uses the toolbar PNG generator’s 128 px geometry: rounded badge, filled camera, side lens and play triangle.
+- All **22 theme palettes** (11 themes × light/dark) kept the same geometry, rendered without unwanted outline strokes, and kept contrasting camera/play colors.
+- Visually checked the Pixel art header and folded launcher. The header fits a 320 px viewport; the folded launcher uses the identical logo shape.
+- **116 tests and 4 extension package checks passed.** Both distributions were rebuilt. Chrome permissions, room protocol and toolbar PNG assets are unchanged.
+
+This visual check used the local shared-app fixture, not an installed extension on a live Stremio page.
+
+---
+
 # SWaP 4.2.2 Join-button verification
 
 Executed 2026-10-04 in the local Stremio-shaped browser fixture.

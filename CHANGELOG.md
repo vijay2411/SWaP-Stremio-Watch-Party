@@ -1,3 +1,8 @@
+# SWaP 4.2.3
+
+- Matches the expanded header and folded Watch together icons to the extension toolbar’s rounded camera/play logo. Theme colors adapt while the silhouette stays the same.
+- Includes the branding fix in both the userscript and extension; playback behavior and permissions are unchanged.
+
 # SWaP 4.2.2
 
 - Keeps the Join label on one line when page text-wrapping styles reach the panel. The room-code field takes the remaining row width, so the button cannot be squeezed into a tall, broken label.

@@ -24,7 +24,9 @@ export function mountSwap({ hidden = false } = {}) {
 }
 function mount(initiallyHidden) {
   const paths = {
-    together: '<rect x="2" y="4" width="14" height="13" rx="4"/><path d="m16 8 6-3v11l-6-3M6 21h8M10 17v4"/>',
+    // Same camera/play silhouette and 128px coordinates as scripts/generate-icons.py.
+    // Theme tokens change only its colors, never its shape.
+    together: '<g stroke="none"><rect x="2" y="2" width="124" height="124" rx="28" fill="var(--page)"/><rect x="23" y="37" width="58" height="54" rx="12" fill="var(--text)"/><path d="M85 51 107 39V89L85 77Z" fill="currentColor"/><path d="M44 49V79L66 64Z" fill="var(--page)"/></g>',
     chat: '<path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8z"/>',
     video: '<rect x="2" y="5" width="14" height="14" rx="3"/><path d="m16 9 6-4v14l-6-4"/>',
     sync: '<path d="M20 7a9 9 0 0 0-15-2L2 8m0-5v5h5M4 17a9 9 0 0 0 15 2l3-3m0 5v-5h-5"/>',
@@ -35,7 +37,7 @@ function mount(initiallyHidden) {
     moon: '<path d="M20 14a8 8 0 0 1-10-10 8.5 8.5 0 1 0 10 10Z"/>',
     send: '<path d="m22 2-7 20-4-9-9-4 20-7ZM22 2 11 13"/>'
   };
-  const icon = name => `<svg viewBox="0 0 24 24" aria-hidden="true">${paths[name]}</svg>`;
+  const icon = name => `<svg viewBox="0 0 ${name === 'together' ? '128 128' : '24 24'}" aria-hidden="true">${paths[name]}</svg>`;
   const host = document.createElement('div'); host.id = 'sidekick-root';
   let concealed = initiallyHidden;
   host.hidden = concealed;
